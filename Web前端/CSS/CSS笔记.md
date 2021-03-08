@@ -664,109 +664,128 @@ CSS使用==line-height==属性设置行间距，可以控制文本的间隔。
 
 ---
 
-## CSS的背景
+## 盒子阴影(box-shadow)
 
-背景属性可以设置背景颜色，背景图像，背景平铺，背景图像位置，背景图像固定等。
+box-shadow是css3新增的一个属性，用来定义元素的盒子阴影
 
-### 背景颜色
+### box-shadow的属性
 
-CSS使用==background-color==属性定义元素的背景颜色。
+| 属性          | 描述                                                         |
+|---------------|--------------------------------------------------------------|
+| none          | 默认值，表示没有阴影                                         |
+| inset         | 阴影类型，不设置则为外阴影;设置为"inset"，就是内阴影         |
+| x-offset      | 阴影水平偏移量，可正可负。取正值阴影在右边，取负值阴影在左边 |
+| y-offset      | 阴影垂直偏移量，可正可负。取正值阴影在底部，取负值阴影在顶部 |
+| blur-radius   | 阴影模糊半径，只能取正值。0表示没有模糊效果，数值越大越模糊  |
+| spread-radius | 阴影扩展半径，可正可负。取正值阴影扩大，取负值阴影缩小       |
+| color         | 阴影颜色，不同浏览器默认颜色不同，Webkit内核的浏览器为透明·  |
+
+**box-shadow属性书写顺序**
+
+```
+box-shadow: none | [inset x-offset y-offset blur-radius spread-radius color]
+```
+
+直接在图片上添加内阴影的效果是没有效的，与在图片上直接使用border-radius类似，在img标签外添加一个容器标签，并将img作为容器标签的背景图片，就可以实现border-radius效果
+
+## 背景(background)
+
+背景是一个非常常用的属性
+
+### 背景的基本属性
+
+| 属性             | 描述 |
+|------------------|------|
+| background-color | 背景颜色 |
+| background-image             | 背景图片 |
+| background-repeat             | 背景图片的展示方式 |
+| background-attachment             | 背景图片是固定还是滚动 |
+| background-position             | 背景图片位置 |
+
+**background属性书写顺序**
+
+```
+background: <background-color> | <background-image> | <background-repeat> | <background-attachment> | <background-position>
+```
+
+### background-color属性
 
 语法：
 
-```css
-选择器 {
-    background-color: 属性值;
-}
+```
+background-color: transparent | <color>
 ```
 
-### 背景图像
+background-color属性的默认值为"transparent"，不设置任何颜色时，背景为透明
 
-CSS使用==background-image==属性定义元素的背景图像。实际开发常见于logo或一些装饰性的小图像或超大的背景图像等。优点是非常便于控制位置。
+### background-image属性
+
+实际开发常见于logo或一些装饰性的小图像或超大的背景图像等。优点是非常便于控制位置
 
 语法：
 
-```css
-选择器 {
-    background-image: none | url(路径);
-}
+```
+background-image: none | <url>
 ```
 
-> * none:无背景图像。
-> * url：指定图像的路径。
+### background-repeat属性
 
-### 背景平铺
-
-CSS使用==background-repeat==属性实现背景平铺。
-
-```css
-选择器 {
-    background-repeat: repeat | no-repeat | repeat-x | repeat-y;
-}
+```
+background-repeat: repeat | no-repeat | repeat-x | repeat-y
 ```
 
-> * repeat：图像在纵向和横向上平铺。
-> * no-repeat：图像不平铺。
-> * repeat-x：图像横向平铺。
-> * repeat-y：图像纵向平铺。
+**属性值描述**
 
-### 背景位置
+| 属性值 | 描述 |
+|--------|------|
+| repeat   | 图片沿x轴和y轴同时平铺 |
+| no-repeat   | 图片不平铺 |
+| repeat-x   | 图片沿x轴平铺 |
+| repeat-y   | 图片沿y轴平铺 |
 
-CSS使用==background-position==属性可以改变图像在背景中的位置。
+### background-attachment属性
 
 语法：
 
-```css
-选择器 {
-    background-position: x y;
-}
+```
+background-attachment: scroll | fixed
 ```
 
-参数代表==x坐标==和==y坐标==，参数值可以使用方位名词或精确单位。
+**属性值描述** 
 
-> * length：百分数，有浮点数字和单位标识符组成的长度值。
-> * position：top，center，bottom，left，right这些方位名词。
+| 属性值 | 描述 |
+|--------|------|
+| scroll   | 背景图片会随着浏览器滚动条一起滚动 |
+| fixed   | 背景图片固定不动 |
 
-### 背景图像固定
-
-CSS使用==background-attachment==属性设置背景图像是否固定或随着页面其余部分滚动。
+### background-position属性
 
 语法：
 
-```css
-选择器 {
-    background-attachment: scroll | fixed;
-}
+```
+background-position: <percentage> | <length> | <left|center|right> | <top|center|bottom>
 ```
 
-参数
+background-position属性的默认值为"(0,0) | (0%,0%) | (left top)"
 
-> * scroll：背景图像随着对象内容固定。
-> * fixed：背景图像固定。
+### 新增属性
 
-### 背景复合写法
+在css3中background属性依然保持以前的用法，只是追加了一些新属性
 
- CSS使用==background==属性可是实现书写复合代码。
-
-一般习惯规定的书写顺序：background: 背景颜色 背景图像地址 背景平铺 背景图像滚动 背景图像位置;
-
-```css
-选择器 {
-    background: transparent url(url) repeat-y fixed top;
-}
-```
+| 属性              | 描述                                       |
+|-------------------|--------------------------------------------|
+| background-origin | 指定绘制背景图片的起点                     |
+| background-clip   | 指定背景图片的显示范围                     |
+| background-size   | 指定背景图片的尺寸大小                     |
+| background-break  | 指定内联元素的背景图片进行平铺时的循环方式 |
 
 ### 背景颜色半透明
 
 CSS提供了背景颜色半透明的效果。
 
-```css
-选择器 {
-    background: rgba(0,0,0,0.3);
-}
 ```
-
-> * 最后一个参数是alpha透明的，取值范围在0~1之间。
+background: rgba(0,0,0,0.3);
+```
 
 ---
 

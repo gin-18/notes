@@ -341,6 +341,7 @@ station <设备名> connent <网络名称>
 38. virtualbox-host-modelus-arch
 39. tlp
 40. xf86-video-intel
+41. neovim-remote
 ```
 
 ### nvidia显卡驱动
