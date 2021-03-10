@@ -342,6 +342,11 @@ station <设备名> connent <网络名称>
 39. tlp
 40. xf86-video-intel
 41. neovim-remote
+42. lxappearance
+43. materia-gtk-theme
+44. papirus-icon-theme
+45. xorg-xbacklight
+46. betterlockscreen
 ```
 
 ### nvidia显卡驱动
@@ -593,5 +598,41 @@ pair MAC_address
 connent MAC_address
 ```
 
-<++>
+### 亮度调整
+
+使用"xorg-xbacklight"来调整屏幕的亮度
+
+"xbacklight"命令默认只对Intel核显有效
+
+调整屏幕亮度就是在硬件层面调整LED灯的功率，在linux中通过acpi(高级配置与电源接口)来控制。其他核显可以安装acpi的亮度控制取代"xbacklight"的功能
+
+```
+sudo pacman -S acpilight
+```
+
+将当前用户添加到"video"组，实现免"root"控制亮度
+
+```
+sudo gpasswd video -a <username>
+```
+
+"acpilight"兼容"xbacklight"，重启之后就可以通过以下命令控制亮度
+
+```
+# 获取当前亮度
+xbacklight -get
+
+# 设置亮度
+xbacklight -set <number>
+
+# 增加亮度
+xbacklight -inc <number>
+
+# 降低亮度
+xbacklight -dec <number>
+```
+
+### VMwarw Workstation
+
+vmware workstation 16 pro序列号:ZF3R0-FHED2-M80TY-8QYGC-NPKYF
 
