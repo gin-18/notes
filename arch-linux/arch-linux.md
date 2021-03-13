@@ -1,3 +1,5 @@
+[TOC]
+
 # Arch Linux
 
 ## 安装
@@ -185,7 +187,7 @@ nvim /etc/hostname
 
 ::1           localhost
 
-127.0.0.1     主机名.localdomain 主机名
+127.0.1.1     主机名.localdomain 主机名
 ```
 
 ### 给root用户添加密码
@@ -347,6 +349,7 @@ station <设备名> connent <网络名称>
 44. papirus-icon-theme
 45. xorg-xbacklight
 46. betterlockscreen
+47. xclip
 ```
 
 ### nvidia显卡驱动

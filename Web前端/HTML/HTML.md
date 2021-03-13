@@ -1,6 +1,4 @@
-# HTML笔记
-
----
+# HTML
 
 **W3School的HTML教程**：https://www.w3school.com.cn/HTML/index.asp
 
