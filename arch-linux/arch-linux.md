@@ -1,5 +1,3 @@
-[TOC]
-
 # Arch Linux
 
 ## 安装
@@ -350,6 +348,12 @@ station <设备名> connent <网络名称>
 45. xorg-xbacklight
 46. betterlockscreen
 47. xclip
+48. xorg-xsetroot
+49. duf
+50. acpi
+51. retroarch
+52. retroarch-assets-xmb
+53. retroarch-assets-ozone
 ```
 
 ### nvidia显卡驱动
@@ -456,6 +460,8 @@ passwd gin
 3. ttf-dejavu 
 4. ttf-nerd-fonts-symbols-mono
 5. otf-font-awesome
+6. ttf-symbola
+7. adobe-source-code-pro
 ```
 
 查看以安装的字体

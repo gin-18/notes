@@ -142,7 +142,7 @@ UI元素状态伪类选择器主要用于form表单元素，以提高页面的�
 
 **nth-child与nth-of-type的区别**
 
-**nth-child**匹配的子元素要在父元素中的第n个位置
+**nth-child**匹配的子元素要在父元素中的第n个位置。
 
 ```css
 .box div:nth-child(2) {
@@ -150,15 +150,237 @@ UI元素状态伪类选择器主要用于form表单元素，以提高页面的�
 }
 ```
 
-@import "child-type.html"
-
 ![](./css.assets/2021-03-11_01-10.png)
 
-从上面的图来看，**d2**在父元素的第2个位置时，元素匹配到了
+从上面的图来看，**d2**在父元素的第2个位置时，元素匹配到了。
 
 ![](./css.assets/2021-03-11_01-15.png)
 
-但是，**d2**在父元素的第3个位置时，元素就没有匹配到
+但是，**d2**在父元素的第3个位置时，元素就没有匹配到。
+
+**nth-of-type**匹配的是指定类型的第n个子元素。
+
+```
+.box div:nth-of-type(2) {
+  background-color: #c0c0c0;
+}
+```
+
+![](./css.assets/2021-03-21_22-27.png)
+
+从上图可以看出，**d2**在父元素的第3个位置，但仍然匹配到了。
+
+### 伪元素
+
+| 伪元素         | 描述                                        |
+|----------------|---------------------------------------------|
+| ::first-letter | 用于选择文本快的第一个字母                  |
+| ::first-line   | 用于匹配元素的第一行文本                    |
+| ::before       | 在元素前面插入一些内容，必须有"content"属性 |
+| ::after        | 在元素后面插入一些内容，必须有"content"属性 |
+| ::selection    | 用于匹配突出显示的文本                      |
+
+### 属性选择器
+
+基于元素的属性来匹配元素。
+
+| 选择器  | 描述                        |
+|---------|-----------------------------|
+| E[attr] | 选择匹配具有属性attr的E元素 |
+| <++>    | <++>                        |
+| <++>    | <++>                        |
+| <++>    | <++>                        |
+| <++>    | <++>                        |
+| <++>    | <++>                        |
+| <++>    | <++>                        |
+| <++>    | <++>                        |
+
+## 边框(border)
+
+边框主要包括3个类型值：**border-width**，**border-color**，**border-style**。
+
+将3个属性合并在一起，其缩写语法：
+
+```
+border: border-width border-color border-style
+```
+
+### 边框类型(border-style)
+
+| 属性值  | 描述                                                             |
+|---------|------------------------------------------------------------------|
+| none    | 定义无边框                                                       |
+| hidden  | 与"none"相同，不过应用于表时除外，对于表，hidden用于解决边框冲突 |
+| dotted  | 定义点状边框                                                     |
+| dashed  | 定义虚线边框                                                     |
+| solid   | 定义实线边框                                                     |
+| double  | 定义双线边框                                                     |
+| groove  | 定义3D凹槽边框，其效果取决与border-color的值                     |
+| ridge   | 定义3D垄状边框，其效果取决与border-color的值                     |
+| inset   | 定义3D inset边框，其效果取决于border-color的值                   |
+| outset  | 定义3D outset边框，其效果取决于border-color的值                  |
+| inherit | 规定应该从父元素继承边框样式                                     |
+
+## 盒子阴影(box-shadow)
+
+box-shadow是CSS3新增的一个属性，用来定义元素的盒子阴影
+
+### box-shadow的属性
+
+| 属性          | 描述                                                         |
+|---------------|--------------------------------------------------------------|
+| none          | 默认值，表示没有阴影                                         |
+| inset         | 阴影类型，不设置则为外阴影;设置为"inset"，就是内阴影         |
+| x-offset      | 阴影水平偏移量，可正可负。取正值阴影在右边，取负值阴影在左边 |
+| y-offset      | 阴影垂直偏移量，可正可负。取正值阴影在底部，取负值阴影在顶部 |
+| blur-radius   | 阴影模糊半径，只能取正值。0表示没有模糊效果，数值越大越模糊  |
+| spread-radius | 阴影扩展半径，可正可负。取正值阴影扩大，取负值阴影缩小       |
+| color         | 阴影颜色，不同浏览器默认颜色不同，Webkit内核的浏览器为透明·  |
+
+**box-shadow属性书写顺序**
+
+```
+box-shadow: none | [inset x-offset y-offset blur-radius spread-radius color]
+```
+
+直接在图片上添加内阴影的效果是没有效的，与在图片上直接使用border-radius类似，在img标签外添加一个容器标签，并将img作为容器标签的背景图片，就可以实现border-radius效果
+
+## 背景(background)
+
+背景是一个非常常用的属性
+
+### 背景的基本属性
+
+| 属性                  | 描述                   |
+|-----------------------|------------------------|
+| background-color      | 背景颜色               |
+| background-image      | 背景图片               |
+| background-repeat     | 背景图片的展示方式     |
+| background-attachment | 背景图片是固定还是滚动 |
+| background-position   | 背景图片位置           |
+
+**background属性书写顺序**
+
+```
+background: <background-color> | <background-image> | <background-repeat> | <background-attachment> | <background-position>
+```
+
+### background-color属性
+
+语法：
+
+```
+background-color: transparent | <color>
+```
+
+background-color属性的默认值为"transparent"，不设置任何颜色时，背景为透明
+
+### background-image属性
+
+实际开发常见于logo或一些装饰性的小图像或超大的背景图像等。优点是非常便于控制位置
+
+语法：
+
+```
+background-image: none | <url>
+```
+
+### background-repeat属性
+
+```
+background-repeat: repeat | no-repeat | repeat-x | repeat-y
+```
+
+**属性值描述**
+
+| 属性值    | 描述                   |
+|-----------|------------------------|
+| repeat    | 图片沿x轴和y轴同时平铺 |
+| no-repeat | 图片不平铺             |
+| repeat-x  | 图片沿x轴平铺          |
+| repeat-y  | 图片沿y轴平铺          |
+
+### background-attachment属性
+
+语法：
+
+```
+background-attachment: scroll | fixed
+```
+
+**属性值描述** 
+
+| 属性值 | 描述                               |
+|--------|------------------------------------|
+| scroll | 背景图片会随着浏览器滚动条一起滚动 |
+| fixed  | 背景图片固定不动                   |
+
+### background-position属性
+
+语法：
+
+```
+background-position: <percentage> | <length> | <left|center|right> | <top|center|bottom>
+```
+
+background-position属性的默认值为"(0,0) | (0%,0%) | (left top)"
+
+### 新增属性
+
+在CSS3中background属性依然保持以前的用法，只是追加了一些新属性
+
+| 属性              | 描述                                       |
+|-------------------|--------------------------------------------|
+| background-origin | 指定绘制背景图片的起点                     |
+| background-clip   | 指定背景图片的显示范围                     |
+| background-size   | 指定背景图片的尺寸大小                     |
+| background-break  | 指定内联元素的背景图片进行平铺时的循环方式 |
+
+### 背景颜色半透明
+
+CSS提供了背景颜色半透明的效果。
+
+```
+background: rgba(0,0,0,0.3);
+```
+
+## 文本(text)
+
+文本功能主要分为3大类：**字体**，**颜色**，**文本**。
+
+### 字体类型
+
+| 属性             | 描述                           | 取值                                                      |
+|------------------|--------------------------------|-----------------------------------------------------------|
+| font-family      | 定义字体的类型                 |                                                           |
+| font-style       | 定义字体样式                   | normal(默认值)，italic(斜体)，oblique(倾斜)               |
+| font-weight      | 定义字体粗细                   | normal(默认值)，bold(粗体)，bolder(特粗体)，lighter(细体) |
+| font-size-adjust | 定义是否强制对文本使用同一尺寸 |                                                           |
+| font-stretch     | 定义是否横向拉伸变形字体       |                                                           |
+| font-variant     | 定义字体大小写                 | normal(默认值)，small-caps(小型的大写字母体字)            |
+
+**font**的写法
+
+```
+font: font-style font-weight/line-height font-family;
+```
+
+### 文本类型
+
+| 属性            | 描述                               | 取值                                                                                                                                                     |
+|-----------------|------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| word-spacing    | 定义词与词之间的间距               | normal(默认值)，length(设置词与词之间的距离值，可以是负值)                                                                                               |
+| letter-spacing  | 定义字符之间的间距                 | normal(默认值)，length(设置字符与字符之间的间距，可以是负值)                                                                                             |
+| vertical-align  | 定义文本的垂直对齐方式             | baseline(默认值)，sub(上标对齐)，super(下标对齐)，bottom(行框低端对齐)，text-bottom(行内文本底端对齐)，top(顶端对齐)，middle(居中对齐)，百分比数字，长度 |
+| text-decoration | 定义文本的修饰线                   | none(默认值)，underline(下划线)，overline(上划线)，line-through(删除线)，blink(闪烁线)                                                                   |
+| text-indent     | 定义文本首行缩进                   | length(长度单位)，百分比                                                                                                                                 |
+| text-align      | 定义文本水平对齐方式               | left(左对齐)，center(水平居中)，right(右对齐)，justify(两端对齐)                                                                                         |
+| line-height     | 定义文本行高                       | normal(默认值)，长度值，百分比值，数字                                                                                                                   |
+| text-transform  | 定义文本大小写                     | none(默认值)，uppercase(大写)，lowercase(小写)，capitalize(首字大写)                                                                                     |
+| text-shadow     | 定义文本阴影效果                   |                                                                                                                                                          |
+| white-space     | 定义文字之间和文本之间的空白符间距 | normal(默认值)，nowrap(空白符合并，换行符忽略)，pre(空白符，换行符保留)，pre-wrap(空白符，换行符保留)，pre-line(空白符合并，换行符保留)                  |
+| direction       | 控制文本流入的方向                 | ltr(默认值)，rtl(文本从右到左流入)，inherit(文本流入方向由继承获得)                                                                                      |
+
 
 ## CSS的元素显示模式
 
@@ -168,29 +390,35 @@ HTML中的元素一般可以分为块元素和行内元素。
 
 ### 块元素（block element）
 
-> * 在页面中独占一行的元素。&lt;div&gt;是最典型的块元素。
-> * 高度，宽度，外边距以及内边距都可以控制。
-> * 宽度默认是容器（父级宽度）的100%。
-> * 是一个容器盒子，里面可以放任何元素。
-> * 在网页中一般通过块元素来对网页进行布局。
+```
+* 在页面中独占一行的元素。&lt;div&gt;是最典型的块元素
+* 高度，宽度，外边距以及内边距都可以控制
+* 宽度默认是容器（父级宽度）的100%
+* 是一个容器盒子，里面可以放任何元素
+* 在网页中一般通过块元素来对网页进行布局
+```
 
 ### 行内元素（inline element）
 
-> * 在页面中不会独占一行的元素称为行内元素。
-> * 相邻的行内元素在一行上，一行可以显示多个行内元素。
-> * 宽高的设置是无效的。
-> * 默认宽度就是文本本身内容的宽度。
-> * 行内元素只能容纳文本或其他行内元素，一般主要用来包裹文本。
+```
+* 在页面中不会独占一行的元素称为行内元素
+* 相邻的行内元素在一行上，一行可以显示多个行内元素
+* 宽高的设置是无效的
+* 默认宽度就是文本本身内容的宽度
+* 行内元素只能容纳文本或其他行内元素，一般主要用来包裹文本
+```
 
 ### 行内块元素
 
 行内块元素同时具有块元素和行内元素的特点。例如，&lt;img /&gt;，&lt;input&gt;，&lt;td&gt;。
 
-> * 和相邻的行内元素在一行上，但是元素之间会有空白间隙，一行可以显示多个。
-> * 默认宽度就是其本身的宽度。
-> * 高度，行高，外边距以及内边距可以控制。
-> * 文字类的元素里面不能放块元素，例如，&lt;p&gt;元素中不能放任何任何的块元素。一般情况是在块元素中放行内元素，而不会在行内元素中放块元素。
-> * 浏览器在解析网页的时候，会自动对网页中不符合规范的内容进行修正。
+```
+* 和相邻的行内元素在一行上，但是元素之间会有空白间隙，一行可以显示多个
+* 默认宽度就是其本身的宽度
+* 高度，行高，外边距以及内边距可以控制
+* 文字类的元素里面不能放块元素，例如，&lt;p&gt;元素中不能放任何任何的块元素。一般情况是在块元素中放行内元素，而不会在行内元素中放块元素
+* 浏览器在解析网页的时候，会自动对网页中不符合规范的内容进行修正
+```
 
 ### 元素显示模式总结
 
@@ -490,129 +718,6 @@ CSS使用==line-height==属性设置行间距，可以控制文本的间隔。
 | line-height     | 行高     | 控制行间距。                          |
 
 ---
-
-## 盒子阴影(box-shadow)
-
-box-shadow是CSS3新增的一个属性，用来定义元素的盒子阴影
-
-### box-shadow的属性
-
-| 属性          | 描述                                                         |
-|---------------|--------------------------------------------------------------|
-| none          | 默认值，表示没有阴影                                         |
-| inset         | 阴影类型，不设置则为外阴影;设置为"inset"，就是内阴影         |
-| x-offset      | 阴影水平偏移量，可正可负。取正值阴影在右边，取负值阴影在左边 |
-| y-offset      | 阴影垂直偏移量，可正可负。取正值阴影在底部，取负值阴影在顶部 |
-| blur-radius   | 阴影模糊半径，只能取正值。0表示没有模糊效果，数值越大越模糊  |
-| spread-radius | 阴影扩展半径，可正可负。取正值阴影扩大，取负值阴影缩小       |
-| color         | 阴影颜色，不同浏览器默认颜色不同，Webkit内核的浏览器为透明·  |
-
-**box-shadow属性书写顺序**
-
-```
-box-shadow: none | [inset x-offset y-offset blur-radius spread-radius color]
-```
-
-直接在图片上添加内阴影的效果是没有效的，与在图片上直接使用border-radius类似，在img标签外添加一个容器标签，并将img作为容器标签的背景图片，就可以实现border-radius效果
-
-## 背景(background)
-
-背景是一个非常常用的属性
-
-### 背景的基本属性
-
-| 属性             | 描述 |
-|------------------|------|
-| background-color | 背景颜色 |
-| background-image             | 背景图片 |
-| background-repeat             | 背景图片的展示方式 |
-| background-attachment             | 背景图片是固定还是滚动 |
-| background-position             | 背景图片位置 |
-
-**background属性书写顺序**
-
-```
-background: <background-color> | <background-image> | <background-repeat> | <background-attachment> | <background-position>
-```
-
-### background-color属性
-
-语法：
-
-```
-background-color: transparent | <color>
-```
-
-background-color属性的默认值为"transparent"，不设置任何颜色时，背景为透明
-
-### background-image属性
-
-实际开发常见于logo或一些装饰性的小图像或超大的背景图像等。优点是非常便于控制位置
-
-语法：
-
-```
-background-image: none | <url>
-```
-
-### background-repeat属性
-
-```
-background-repeat: repeat | no-repeat | repeat-x | repeat-y
-```
-
-**属性值描述**
-
-| 属性值 | 描述 |
-|--------|------|
-| repeat   | 图片沿x轴和y轴同时平铺 |
-| no-repeat   | 图片不平铺 |
-| repeat-x   | 图片沿x轴平铺 |
-| repeat-y   | 图片沿y轴平铺 |
-
-### background-attachment属性
-
-语法：
-
-```
-background-attachment: scroll | fixed
-```
-
-**属性值描述** 
-
-| 属性值 | 描述 |
-|--------|------|
-| scroll   | 背景图片会随着浏览器滚动条一起滚动 |
-| fixed   | 背景图片固定不动 |
-
-### background-position属性
-
-语法：
-
-```
-background-position: <percentage> | <length> | <left|center|right> | <top|center|bottom>
-```
-
-background-position属性的默认值为"(0,0) | (0%,0%) | (left top)"
-
-### 新增属性
-
-在CSS3中background属性依然保持以前的用法，只是追加了一些新属性
-
-| 属性              | 描述                                       |
-|-------------------|--------------------------------------------|
-| background-origin | 指定绘制背景图片的起点                     |
-| background-clip   | 指定背景图片的显示范围                     |
-| background-size   | 指定背景图片的尺寸大小                     |
-| background-break  | 指定内联元素的背景图片进行平铺时的循环方式 |
-
-### 背景颜色半透明
-
-CSS提供了背景颜色半透明的效果。
-
-```
-background: rgba(0,0,0,0.3);
-```
 
 ---
 
