@@ -23,7 +23,9 @@
 | ,                      | 把光标移动到f命令查找结果的上一个字符上     |
 | u                      | 撤销上一次的修改                            |
 | c                      | 修改操作符                                  |
+| C                      | 删除光标之后的所有文本并进出插入模式
 | d                      | 删除操作符                                  |
+| D                      | 删除光标之后的所有文本
 | y                      | 复制到寄存器（操作符）                      |
 | >                      | 增加缩进                                    |
 | <                      | 减少缩进                                    |
@@ -43,99 +45,60 @@
 | cc                     | 删除一行并进入插入模式                      |
 | Vu                     | 将当前行改为小写                            |
 | VU                     | 将当前行改写为大写                          |
-| ：term zsh             | 在底部分割一个独立窗口并调用zsh             |
-| . w !zsh               | 将当前行写入zsh                             |
+| :term zsh              | 在底部分割一个独立窗口并调用zsh             |
+| :. w !zsh              | 将当前行写入zsh                             |
 | :3,6 join              | 将3-6行进行合并                             |
-| <++>                   | <++>                                        |
-| <++>                   | <++>                                        |
-| <++>                   | <++>                                        |
+| W                      | 跳过标点符号到下一个词的词首                |
+| B                      | 跳过标点符号到上一个词的词首                |
+| gj                     | 同一行的下一行                              |
+| gk                     | 同一行的上一行                              |
 | vim -u NONE -N         | 以不加载任何插件的方式启动vim               |
+| <++>                   | <++>                                        |
 
-## 使用技巧
+## 查找和替换
 
-未知:subustiute命令？
-
-**Tips:1**
-
-查找和替换
+substitute命令的作用是查找和替换。
 
 ```
-:%s/<要查找的单词>/<要替换的单词>/g //全部替换
+:<作用范围>s/<目标>/<替换>/<替换标志>
 ```
 
-**Tips:2**
+**作用范围**
 
-将光标放在一个单词上，按下×就可以全部查找出公标下的单词
+作用范围分为**当前行**，**全文**，**选区**等等。
 
-按下×nn会遍历所有匹配的项，再回到本次查找的起点
-
-按下×会出现两个效果:
+当前行
 
 ```
-1. 光标会跳转到下一个匹配项上
-
-2. 光标下所有相同的单词都会高亮显示（如果没有显示运行:set hls,也可以修改配置文件使高亮生效）
+:s/<目标>/<替换>/g
 ```
 
-**Tips:3**
-
-从进入插入模式退出插入模式可以看作一次修改，u命令可以撤销上一次的修改。所以可以通过退出插入模式来控制一次撤销的颗粒度
-
-**Tips:4**
-
-按b命令可以把光标移动到单词的开头，再按dw命令可以删除整个单词(正向删除)
-
-按db命令可以删除从光标起始位置到单词开头的内容,然后在按x就可以删除该单词了(反向删除)
-
-按daw命令可以删除整个单词
-
-按dnw命令可以删除n个单词;按ndw同样也可以删除n个单词
-
-按dap命令可以删除一整个段落
-
-**Tips:5**
-
-可以在命令前添加数字n表示执行n次命令
-
-&lt; C-a &gt; 和 &lt; C-x &gt; 命令分别对数字执行加减操作。
+全文
 
 ```
-1. 把光标移动到数字上，按下n &lt; C-a &gt; 会对当前数字进行加n操作;按下n &lt; C-x &gt; 会对当前数字进行减n操作。
+:%s/<目标>/<替换>/g
 ```
 
-**Tips:6**
-
-操作符待决模式：按下操作符，等待动作命令的输入
-
-进入操作符待决模式也可以按 &lt; Esc &gt; ,以退回普通模式
-
-操作符+动作命令=操作
+选区
 
 ```
-1. 按gUl命令可以把当前光标下的字符转换成大写
+:'<,'>s/<目标>/<替换>/g 
 
-2. 按gUaw命令可以将当前单词转换成大写
-
-3. 按gUap命令可以将一整个段落转换成大写
-
-4. gu命令类似
+// 在可视模式下输入：，vim会自动补全为:'<,'>
 ```
 
-**Tips:7**
-
-读取文件
+## 读取文件
 
 ```
 :r !cat <文件>
 ```
 
-**Tips:8** 
 
-以超级用户权限保存文件
+将vim放在后台：ctrl+z
 
-```
-:w !sudo tee % > /dev/null
-```
+输入shell命令：fg ; 接入后台的vim
+
+
 
 ## 命令行模式
 
@@ -149,23 +112,13 @@
 %:e : 扩展名
 ```
 
-<++>
-
 ## 插入模式
 
-| 按键操作      | 描述                       |
+| 快捷键        | 描述                       |
 |---------------|----------------------------|
 | &lt; C-h &gt; | 删除前一个字符（同退格键） |
 | &lt; C-w &gt; | 删除前一个单词             |
 | &lt; C-u &gt; | 删除至行首                 |
-
-**返回普通模式**
-
-| 按键操作      | 描述                |
-|---------------|---------------------|
-| &lt; Esc &gt; | 切换到普通模式      |
-| &lt; C-[ &gt; | 切换到普通模式      |
-| &lt; C-o &gt; | 切换到插入-普通模式 |
 
 
 ## 折叠
@@ -182,8 +135,6 @@ zE：删除窗口里的所有折叠
 ```
 
 ## 标记
-
----
 
 **创建标记**
 
@@ -205,21 +156,49 @@ m+标记名称
 
 使用:delmarks 标记名称可以删除某个或多个标记;而:delmarks!命令，则会删除所有标记
 
+## 快捷键操作
+
+| 快捷键    | 描述                       |
+|-----------|----------------------------|
+| H         | 跳到行首                   |
+| L         | 跳到行尾                   |
+| Alt+H     | 切换到左分屏               |
+| Alt+J     | 切换到下分屏               |
+| ALt+K     | 切换到上分屏               |
+| Alt+L     | 切换到右分屏               |
+| Y         | 可视模式下复制到系统剪贴板 |
+| Alt+p     | 从系统剪贴板粘贴           |
+| Alt+g     | 打开lazygit                |
+| Alt+t     | 打开终端                   |
+| leader+nt | 打开一个新标签             |
+| Tab+h     | 到上一个标签               |
+| Tab+l     | 到下一个标签               |
+| leader+sc | 打开拼写检查               |
+| leader+gd | 跳转到函数定义的地方       |
+| leader+gr | 跳转到报错的地方           |
+| leader+k  | 打开文档                   |
+| leader+t  | 翻译当前光标下的单词       |
+| leader+r  | 翻译并替换光标下的单词     |
+| Alt+w     | 输入需要翻译的单词         |
+| Alt+r     | 打开ranger                 |
+| Alt+f     | fzf搜索文件                |
+| Alt+m     | fzf搜索标记                |
+| Alt+h     | fzf搜索历史文件            |
+| Alt+b     | fzf搜索Buffer              |
+| Alt+c     | fzf搜索历史命令            |
+| Alt+T     | 打开table-mode             |
+| Alt+M     | 打开markdown-preview       |
+| Alt+v     | 打开vista                  |
+| Alt+V     | 打开vista搜索              |
+| Alt+e     | 打开nerdtree               |
+| <++>      | <++>                       |
+| <++>      | <++>                       |
 
 ## 插件
 
-```
-1. neoclide/coc.nvim
-2. dhruvasagar/vim-table-mode
-3. iamcco/markdown-preview.vim
-4. honza/vim-snippet
-5. junegunn/fzf.vim
-6. skywind3000/vim-terminal-help
-```
-
 ### coc配置
 
-安装依赖
+**安装依赖**
 
 ```
 1. python3
@@ -243,87 +222,47 @@ pip3 install --user pynvim
 sudo npm install -g neovim
 ```
 
-### markdown-preview
+### 在浮动窗口打开lazygit
 
----
+```shell
+noremap <M-g> :call OpenFloatingWin()<CR>:term lazygit<CR>i
 
-```
-打开预览：<LEADER>mp
-关闭预览：<LEADER>ps
-```
+function! OpenFloatingWin()
+	let height = &lines - 3
+	let width = float2nr(&columns - (&columns * 2 / 10))
+	let col = float2nr((&columns - width) / 2)
 
-### vim-table-mode
+	let opts = {
+		\ 'relative': 'editor',
+		\ 'row': height * 0.1,
+		\ 'col': col * 1.4,
+		\ 'width': width * 9 / 10,
+		\ 'height': height * 8 / 10
+	  \ }
 
----
+	let buf = nvim_create_buf(v:false, v:true)
+	let win = nvim_open_win(buf, v:true, opts)
 
-```
-打开vim-table-mode：<LEADER>tm
-```
+	call setwinvar(win, '&winhl', 'Normal:Pmenu')
 
-### vista.vim
-
----
-
-```
-打开Vista：<LEADER>vv
-打开Vista搜索：<LEADER>vf
-```
-
-### fzf
-
----
-
-```
-搜索文件：<LEADER>ff
-搜索标记：<LEADER>fm
-搜索Buffers：<LEADER>fb
-搜索历史文件：<LEADER>fh
-搜索历史命令：<LEADER>sh
+	setlocal
+				\ nonumber
+				\ norelativenumber
+endfunction
 ```
 
-### netrw
+### nerdtree
 
----
-
-```
-打开netrw：<LEADER>nn 
-```
-
-**netrw操作**
-
-```
-- : 进入上一级目录
-<CR> : 打开光标下的文件或目录
-p : 预览文件(公标保持不变)
-<C-w>z : 关闭预览窗口
-d : 创建目录
-D : 删除文件或目录
-% : 在当前目录下创建文件并编辑
-r : 翻转排列顺序
-qb : 列出所有的目录以及历史路径
-qf : 显示文件详细信息
-R : 重命名文件或目录
-s : 在name，time，file size之间切换排序
-t : 在新的标签页打开文件
-o : 以水平分割窗口的方式打开光标下的文件
-v : 以垂直分割窗口的方式打开光标下的文件
-a : 隐藏/显示由g:netrw_list_hide所控制的文件
-gh : 隐藏/显示.开头的文件
-
-```
-
-### vim-terminal-help
-
----
-
-neovim需要安装"neovim-remote"才可以使用"drop"命令打开文件
-
-使用"vim-terminal-help"
-
-```
-打开终端：Alt+=
-移动光标：Alt+Shift+hjkl
-退出普通模式：Alt+Shift+q
-```
-
-<++>
+| 按键 | 描述                       |
+|------|----------------------------|
+| !    | 执行当前文件               |
+| O    | 递归打开选中的目录         |
+| x    | 合拢选中节点的父目录       |
+| X    | 递归合拢选中节点的所有目录 |
+| P    | 跳到根节点                 |
+| p    | 跳到父节点                 |
+| r    | 递归刷新选中目录           |
+| R    | 递归刷新节点               |
+| m    | 打开文件系统菜单           |
+| I    | 显示隐藏文件               |
+| <++> | <++>                       |

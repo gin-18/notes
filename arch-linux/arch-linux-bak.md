@@ -6,6 +6,12 @@ Arch Linux官方安装向导：https://wiki.archlinux.org/index.php/Installation
 
 官方网址：https://archlinux.org/download/
 
+## VirtualBox打开EFI
+
+![vbox-efi](./arch-linux.assets/vbox-efi.png)
+
+勾选"Enable EFI"以在VirtualBox中打开EFI。
+
 ## 安装
 
 ### 验证启动方式
@@ -22,7 +28,11 @@ ls /sys/firmware/efi/efivars
 
 ---
 
-插入网线或使用wifi。
+安装Arch Linux必须连通网络。
+
+可以插入网线或使用wifi。
+
+如果使用的是虚拟机，则不需要进行这一步操作。
 
 #### 连接wifi
 
@@ -44,8 +54,6 @@ station <设备名> get-networks
 # 连接网络
 station <设备名> connent <网络名称>
 ```
-
-如果使用的是虚拟机，则不需要进行这一步操作。
 
 ### 更新系统时钟
 
@@ -81,6 +89,14 @@ UEFI需要创建3个分区：boot分区(启动分区)，swap分区，系统分�
 可以使用fdisk命令进行磁盘分区，也可以使用cfdisk命令进行磁盘分区。
 
 cfdisk命令拥有交互界面。
+
+```
+cfdisk
+```
+
+输入命令进入"cfdisk"界面
+
+![cfdisk](./arch-linux.assets/cfdisk.png)
 
 ### 磁盘格式化
 

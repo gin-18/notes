@@ -1,5 +1,11 @@
 # git
 
+解决git clone太慢
+
+```
+将原URL中的github.com替换为github.com.cnpmjs.org
+```
+
 ## 三种状态
 
 git有三种状态，文件可能处于其中一种：**已提交(committed)**，**已修改(modified)**和**已暂存(staged)**
@@ -308,9 +314,8 @@ git pull <url>
 git clone <url>
 ```
 
-解决git clone太慢
-```
-将原URL中的github.com替换为github.com.cnpmjs.org
-```
+
+## lazygit
+
 
 
