@@ -98,7 +98,33 @@ cfdisk
 
 ![cfdisk](./arch-linux.assets/cfdisk.png)
 
+BIOS选择"dos",UEFI选择"gpt"
+
 ### 磁盘格式化
+
+---
+
+#### BIOS磁盘格式化
+
+格式化系统分区
+
+```
+mkfs.ext4 /dev/sda2
+```
+
+格式化swap分区
+
+```
+mkswap /dev/sda1
+```
+
+激活swap分区
+
+```
+swapon /dev/sda1
+```
+
+#### UEFI磁盘格式化
 
 格式化boot分区
 
@@ -118,13 +144,27 @@ mkfs.ext4 /dev/sda3
 mkswap /dev/sda2
 ```
 
-启动swap分区
+激活swap分区
 
 ```
 swapon /dev/sda2
 ```
 
 ### 挂载
+
+BIOS只需要挂载系统分区
+
+UEFI需要挂载启动分区(boot分区)和系统分区
+
+#### BIOS挂载
+
+将系统分区/dev/sda2挂载到/mnt目录
+
+```
+mount /dev/sda2 /mnt
+```
+
+#### UEFI挂载
 
 将系统分区/dev/sda3挂载到/mnt目录
 
@@ -146,6 +186,8 @@ mount /dev/sda1 /mnt/boot
 
 ### 修改镜像列表
 
+---
+
 将中国的源放置到最前面
 
 ```
@@ -153,6 +195,8 @@ vim /etc/pacman.d/mirrorlist
 ```
 
 ### 安装系统
+
+---
 
 ```
 pacstrap /mnt base linux linux-firmware
@@ -162,11 +206,15 @@ pacstrap /mnt base linux linux-firmware
 
 ### 配置系统
 
+---
+
 ```
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
 
 ### 进入系统
+
+---
 
 ```
 arch-chroot /mnt
@@ -176,11 +224,15 @@ arch-chroot /mnt
 
 ### 修改时区
 
+---
+
 ```
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 
 ### 同步系统时间
+
+---
 
 ```
 hwclock --systohc
@@ -188,7 +240,9 @@ hwclock --systohc
 
 ### 本地化设置
 
-进入系统没有编辑器，下载需要的编辑器
+---
+
+进入系统后没有编辑器，下载需要的编辑器
 
 ```
 pacman -S neovim
@@ -206,23 +260,25 @@ nvim /etc/locale.gen
 locale-gen
 ```
 
-创建/etc/locale.conf文件，在/etc/locale.conf文件中添加LANG=en_US.UTF-8
+创建/etc/locale.conf文件，并在/etc/locale.conf文件中添加"LANG=en_US.UTF-8"
 
 ```
 nvim /etc/locale.conf
 
-添加
+# 添加以下内容
 LANG=en_US.UTF-8
 ```
 
 ### 网络配置
+
+---
 
 创建/etc/hostname文件，在文件中添加自己的主机名
 
 ```
 nvim /etc/hostname
 
-添加自己的主机名
+# 添加自己的主机名
 ```
 
 添加hosts，在/etc/hosts中添加以下内容：
@@ -243,44 +299,74 @@ passwd
 
 ### 安装grub引导
 
-安装"grub"和"efibootmgr"
+#### BIOS安装grub引导程序
+
+BIOS只需要安装grub
+
+安装"grub"
 
 ```
-pacman -S grub efibootmgr
+pacman -S grub
 ```
 
-双系统额外安装"intel-ucode"和"os-prober"
+grub安装
 
 ```
-sudo pacman -S grub efibootmgr intel-ucode os-prober
-```
-
-<++>
-
-创建/boot/grub目录
-
-```
-mkdir /boot/grub
+grub-install --target=i386-pc /dev/sda
 ```
 
 生成grub的配置文件
 
 ```
-grub-mkconfig > /boot/grub/grub.cfg
+grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-安装grub
+#### UEFI安装grub引导程序
+
+UEFI需要额外安装"efibootmgr"
+
+```
+pacman -S grub efibootmgr
+```
+
+grub安装
 
 ```
 grub-install --target=x86_64-efi --efi-directory=/boot
 ```
 
-### 安装dhcpcd
-
-dhcpcd用于新系统上网
+生成grub的配置文件
 
 ```
-pacman -S dhcpcd
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+#### ps:
+
+根据cpu选择安装"intel-ucode"或"amd-ucode"
+
+```
+pacman -S intel-ucode
+
+或
+
+pacman -S amd-ucode
+```
+
+双系统需要额外安装"os-prober"
+
+```
+sudo pacman -S os-prober
+```
+
+### 安装dhcpcd和iwd
+
+dhcpcd用于新系统动态分配ip地址
+
+iwd用于新系统连接wifi
+
+```
+pacman -S dhcpcd iwd
 ```
 
 ### 退出系统
@@ -301,7 +387,11 @@ umount -R /mnt
 reboot
 ```
 
-## 联网设置
+## 重启进入系统后的设置
+
+### 联网设置
+
+---
 
 启动dhcpcd
 
@@ -311,14 +401,9 @@ systemctl start dhcpcd
 systemctl enable dhcpcd
 ```
 
-### wifi连接
-
-安装iwd软件包
+wifi连接
 
 ```
-pacman -S iwd
-
-# 启动iwd
 systemctl start iwd
 
 systemctl enable iwd
@@ -343,352 +428,58 @@ station <设备名> get-networks
 station <设备名> connent <网络名称>
 ```
 
-## 安装完成Arch Linux后的配置
-
-需要安装的软件
+设置好后可以ping一下看网络是否连通
 
 ```
-1. base-devel
-2. xorg-server
-3. xorg-xinit
-4. xorg-xrandr
-5. i3-gaps
-6. alacritty
-7. ranger
-8. fzf
-9. openssh
-10. git
-11. python3
-12. python-pip
-13. nodejs
-14. yarn
-15. npm
-16. simplescreenrecorder
-17. screenkey
-18. flameshot
-19. gpick
-20. ffmpegthumbnailer
-21. zathura
-22. zathura-pdf-poppler
-23. fcitx5
-24. fcitx5-chinese-addons
-25. fcitx5-qt
-26. fcitx5-gtk
-27. fcitx5-configtool
-28. ctags
-29. fd
-30. bat
-31. alsa-utils
-32. pulseaudio
-33. pulseaudio-alsa
-34. pulseaudio-bluetooth
-35. bluez-utils
-36. nvidia
-37. virtualbox
-38. virtualbox-host-modelus-arch
-39. tlp
-40. xf86-video-intel
-41. neovim-remote
-42. lxappearance
-43. materia-gtk-theme
-44. papirus-icon-theme
-45. xorg-xbacklight
-46. betterlockscreen
-47. xclip
-48. xorg-xsetroot
-49. duf
-50. acpi
-51. retroarch
-52. retroarch-assets-xmb
-53. retroarch-assets-ozone
+ping baidu.com
 ```
 
-### nvidia显卡驱动
+### 更新系统
 
-查看显卡和显卡驱动
-
-```
-lspci -k | grep -A 2 -E "(VGA|3D)"
-```
-
-安装nvidia驱动
+---
 
 ```
-sudo pacman -S nvidia
+pacman -Syyu
 ```
 
-### 双系统grub添加Windows10引导启动项
+### 安装软件包
 
-如果grub引导界面没有Win10启动项，则需要手动添加
-
-#### 查看Win10的EFI启动项在磁盘的哪个分区
-
-```
-fdisk -l
-```
-
-![fdisk-l](./arch-linux.assets/fdisk-l.png)
-
-输出结果中"Size Type"表示分区类型，显示EFI的就是引导分区，找到Win10的引导分区的设备号
-
-#### 查看分区的"uuid"，使用"blkid"命令或"grub"命令均可
-
-```
-blkid /dev/nvme0n1p1<设备号>
-
-或者
-
-grub-probe -t fs_uuid -d /dev/nvme0n1p1<设备号>
-```
-
-#### 在/boot/grub/grub.cfg的30_osprobe文件中添加一下代码
-
-```
-menuentry 'Microsoft Windows 10' {
-  insmod part_gpt
-	insmod fat
-	insmod chain
-	search --fs-uuid --no-floppy --set=root xxxx-xxxx
-	chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
-}
-```
-
-其中"xxxx-xxxx"是分区的"uuid"
-
-### ssh服务
-
-安装"openssh"软件包
-
-```
-pacman -S openssh
-```
-
-启动ssh服务
-
-```
-systemctl start sshd
-
-systemctl enable sshd
-```
-
-### 添加普通用户
-
-安装"base-devel"软件包
+---
 
 ```
 pacman -S base-devel
 ```
 
-添加新普通用户
+### 添加普通用户
 
 ```
-useradd -mG wheel gin
+pacman -S -mG wheel <用户名>
 ```
 
-给普通用户添加密码
+### 给新用户设置密码
 
 ```
-passwd gin
+passwd <用户名>
 ```
 
-修改/etc/sudoers文件
+### 修改/etc/sudoers文件
 
 ```
-将%wheel ALL=(ALL) ALL的注释放开
+nvim /etc/sudoers
 ```
 
-### 字体
-
-暂安装以下字体
+在/etc/sudoers文件中找到以下行,并将这一行的注释放开以可以使用**sudo**命令
 
 ```
-1. wqy-zenhei 
-2. ttf-inconsolata 
-3. ttf-dejavu 
-4. ttf-nerd-fonts-symbols-mono
-5. otf-font-awesome
-6. ttf-symbola
-7. adobe-source-code-pro
+%wheel ALL=(ALL) ALL
 ```
 
-查看以安装的字体
+### 退出root用户
 
 ```
-fc-list
+exit
 ```
 
-### i3wm
+使用新用户登录
 
-安装"i3-gaps"软件包
-
-```
-sudo pacman -S i3-gaps
-```
-
-#### 使用startx启动i3wm
-
-在家目录中创建.xinitrc文件
-
-```
-nvim .xinitrc
-
-添加：exec i3
-```
-
-#### 启动i3
-
-```
-startx
-```
-
-#### 自动启动X
-
-将以下脚本写入/etc/profile文件中，登录后就可以自动启动startx
-
-```
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-	exec startx
-fi
-```
-
-也可以将以上内容单独写成一个脚本文件放在/etc/profile.d目录中，登录时会读取该目录下的脚本文件
-
-
-### alacritty
-
-安装"alacritty"软件包
-
-```
-sudo pacman -S alacritty
-```
-
-alacritty的配置文件是~/.config/alacritty/alacritty.yml
-
-### 虚拟机
-
-#### virtualbox
-
-安装"virtualbox"软件包和内核模块"virtualbox-host-modelus-arch"
-
-如果使用其他内核，需要安装的是"virtualbox-host-dkms"
-
-在"VirtualBox"所使用的内核模块中，只有"vboxdrv"是必须的，该模块必须在虚拟机运行之前加载
-
-```
-modprobe vboxdrv
-```
-
-建议使用高级功能时将一下模块都加载
-
-```
-modprobe vboxnetadp vboxnetflt vboxpci
-```
-
-virtualbox下安装macOS
-
-在启动VM之前，虚拟机目录运行以下命令
-
-```
-1. VBoxManage modifyvm "MyMacVM" --cpuid-set 00000001 000106e5 00100800 0098e3fd bfebfbff
-2. VBoxManage setextradata "MyMacVM" "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac11,3"
-3. VBoxManage setextradata "MyMacVM" "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
-4. VBoxManage setextradata "MyMacVM" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
-5. VBoxManage setextradata "MyMacVM" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
-6. VBoxManage setextradata "MyMacVM" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 1
-7. VBoxManage setextradata "MyMacVM" VBoxInternal2/EfiGopMode 4
-```
-
-### 蓝牙配置
-
-#### 确保相应的软件包存在
-
-```
-1. bluez
-2. bluez-utils
-3. alsa-utils
-4. pulseaudio
-5. pulseaudio-alsa
-6. pulseaudio-bluetooth
-```
-
-bluez，这个软件包提供蓝牙的协议栈
-
-bluez-utils，这个软件包提供"bluetoothctl"工具
-
-#### 启动蓝牙和pulseaudio服务
-
-```
-systemctl start bluetooth
-
-systemctl enable bluetooth
-
-# 确保没有pulseaudio启动
-pulseaudio -k
-
-# 启动pulseaudio服务
-pulseaudio --start
-```
-
-#### 使用bluetoothctl工具连接蓝牙
-
-```
-# 启动bluetoothctl交互命令
-bluetoothctl
-
-# 打开控制器电源，默认关闭
-power on
-
-# 打开代理(官方推荐)
-agent on
-
-# 获取设备的MAC地址
-devices
-
-# 搜索所有可配对的设备
-scan on
-
-# 配对设备
-pair MAC_address
-
-# 连接设备
-connent MAC_address
-```
-
-### 亮度调整
-
-使用"xorg-xbacklight"来调整屏幕的亮度
-
-"xbacklight"命令默认只对Intel核显有效
-
-调整屏幕亮度就是在硬件层面调整LED灯的功率，在linux中通过acpi(高级配置与电源接口)来控制。其他核显可以安装acpi的亮度控制取代"xbacklight"的功能
-
-```
-sudo pacman -S acpilight
-```
-
-将当前用户添加到"video"组，实现免"root"控制亮度
-
-```
-sudo gpasswd video -a <username>
-```
-
-"acpilight"兼容"xbacklight"，重启之后就可以通过以下命令控制亮度
-
-```
-# 获取当前亮度
-xbacklight -get
-
-# 设置亮度
-xbacklight -set <number>
-
-# 增加亮度
-xbacklight -inc <number>
-
-# 降低亮度
-xbacklight -dec <number>
-```
-
-### VMwarw Workstation
-
-vmware workstation 16 pro序列号:ZF3R0-FHED2-M80TY-8QYGC-NPKYF
-
+安装完成
