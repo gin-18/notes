@@ -67,25 +67,6 @@ timedatectl set-ntp true
 
 ---
 
-#### BIOS磁盘分区
-
-BIOS只需要分2个区。
-
-| 挂载点 | 分区类型             |
-|--------|----------------------|
-| swap   | Linux swap(交换分区) |
-| /mnt   | Linux                |
-
-#### UEFI磁盘分区
-
-UEFI需要创建3个分区：boot分区(启动分区)，swap分区，系统分区。
-
-| 挂载点    | 分区类型             |
-|-----------|----------------------|
-| /mnt/boot | EFI系统分区          |
-| swap      | Linux swap(交换分区) |
-| /mnt      | Linux                |
-
 可以使用fdisk命令进行磁盘分区，也可以使用cfdisk命令进行磁盘分区。
 
 cfdisk命令拥有交互界面。
@@ -94,11 +75,62 @@ cfdisk命令拥有交互界面。
 cfdisk
 ```
 
-输入命令进入"cfdisk"界面
+输入命令进入**cfdisk**界面。
 
 ![cfdisk](./arch-linux.assets/cfdisk.png)
 
-BIOS选择"dos",UEFI选择"gpt"
+BIOS选择" dos "，UEFI选择" gpt "。
+
+![gpt](./arch-linux.assets/gpt.png)
+
+" New "创建一个新分区，并输入分区大小。
+
+![input](./arch-linux.assets/input.png)
+
+" Type "选择分区类型。
+
+![type](./arch-linux.assets/type.png)
+
+(boot分区)选择EFI System，(swap分区)选择Linux swap，(系统分区)选择Linux filesystem。
+
+![type](./arch-linux.assets/type-01.png)
+
+分区完成，" Write "写入磁盘。
+
+![write](./arch-linux.assets/write.png)
+
+#### BIOS磁盘分区
+
+BIOS只需要分2个区，swap分区和系统分区。
+
+swap分区：自定义
+
+系统分区：剩余大小
+
+| 挂载点 | 分区类型             |
+|--------|----------------------|
+| swap   | Linux swap(交换分区) |
+| /mnt   | Linux(系统分区)      |
+
+![dos](./arch-linux.assets/dos.png)
+
+#### UEFI磁盘分区
+
+UEFI需要创建3个分区：boot分区(启动分区)，swap分区，系统分区。
+
+boot分区：" 512M-1G "之间。
+
+swap分区：自定义。
+
+系统分区：剩余大小。
+
+| 挂载点    | 分区类型             |
+|-----------|----------------------|
+| /mnt/boot | EFI系统分区          |
+| swap      | Linux swap(交换分区) |
+| /mnt      | Linux                |
+
+![gpt](./arch-linux.assets/write.png)
 
 ### 磁盘格式化
 
@@ -154,7 +186,7 @@ swapon /dev/sda2
 
 BIOS只需要挂载系统分区
 
-UEFI需要挂载启动分区(boot分区)和系统分区
+UEFI需要挂载boot分区(启动分区)和系统分区
 
 #### BIOS挂载
 
@@ -194,6 +226,8 @@ mount /dev/sda1 /mnt/boot
 vim /etc/pacman.d/mirrorlist
 ```
 
+![pacman](./arch-linux.assets/pacman.png)
+
 ### 安装系统
 
 ---
@@ -220,7 +254,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 ```
 
-界面发生变化说明已经进入系统
+界面发生变化说明已经进入系统。
 
 ### 修改时区
 
@@ -293,17 +327,24 @@ nvim /etc/hostname
 
 ### 给root用户添加密码
 
+---
+
 ```
 passwd
 ```
+连续输入两次密码即可。
+
+输入密码时不会有字符显示。
 
 ### 安装grub引导
+
+---
 
 #### BIOS安装grub引导程序
 
 BIOS只需要安装grub
 
-安装"grub"
+安装" grub "
 
 ```
 pacman -S grub
@@ -452,17 +493,23 @@ pacman -S base-devel
 
 ### 添加普通用户
 
+---
+
 ```
 pacman -S -mG wheel <用户名>
 ```
 
 ### 给新用户设置密码
 
+---
+
 ```
 passwd <用户名>
 ```
 
 ### 修改/etc/sudoers文件
+
+---
 
 ```
 nvim /etc/sudoers
@@ -476,10 +523,14 @@ nvim /etc/sudoers
 
 ### 退出root用户
 
+---
+
 ```
 exit
 ```
 
 使用新用户登录
 
-安装完成
+## 安装完成
+
+待更：dwm...

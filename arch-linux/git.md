@@ -314,6 +314,11 @@ git pull <url>
 git clone <url>
 ```
 
+重新设置remote地址
+
+```
+git remote set-url origin <url>
+```
 
 ## lazygit
 
