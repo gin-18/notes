@@ -55,6 +55,26 @@
 | vim -u NONE -N         | 以不加载任何插件的方式启动vim               |
 | <++>                   | <++>                                        |
 
+## tab and space
+
+设置spcae替换tab。
+
+```
+:set expandtab
+```
+
+设置后，只对新输入的tab有效，使用`retab`或`ret`把之前输入的tab替换成space。
+
+```
+:ret
+
+or
+
+：retab
+```
+
+<++>
+
 ## 查找和替换
 
 substitute命令的作用是查找和替换。
@@ -114,11 +134,11 @@ substitute命令的作用是查找和替换。
 
 ## 插入模式
 
-| 快捷键        | 描述                       |
-|---------------|----------------------------|
-| &lt; C-h &gt; | 删除前一个字符（同退格键） |
-| &lt; C-w &gt; | 删除前一个单词             |
-| &lt; C-u &gt; | 删除至行首                 |
+| 快捷键 | 描述                       |
+|--------|----------------------------|
+| C-h    | 删除前一个字符（同退格键） |
+| C-w    | 删除前一个单词             |
+| C-u    | 删除至行首                 |
 
 
 ## 折叠
@@ -220,7 +240,37 @@ pip3 install --user pynvim
 
 ```
 sudo npm install -g neovim
+
 ```
+### bracey.vim
+
+写html自动刷新页面
+
+安装
+
+```
+Plug 'turbio/bracey.vim'
+
+或
+
+Plug 'turbio/bracey.vim', { 'do': 'npm install --prefix server' }
+```
+
+如果报错：Connection refused
+
+```
+1. cd ~/.config/nvim/plugged/bracey.vim
+
+2. npm install --prefix server
+```
+
+命令
+
+```
+<++>
+```
+
+<++>
 
 ### 在浮动窗口打开lazygit
 

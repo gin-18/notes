@@ -486,13 +486,15 @@ passwd gin
 暂安装以下字体
 
 ```
-1. wqy-zenhei 
-2. ttf-inconsolata 
-3. ttf-dejavu 
-4. ttf-nerd-fonts-symbols-mono
-5. otf-font-awesome
-6. ttf-symbola
-7. adobe-source-code-pro
+1. ttf-symbola
+2. adobe-source-code-pro
+3. ttf-jetbrains-mono
+4. nerd-fonts-complete
+5. wqy-zenhei 
+6. ttf-inconsolata 
+7. ttf-dejavu 
+8. ttf-nerd-fonts-symbols-mono
+9. otf-font-awesome
 ```
 
 查看以安装的字体
