@@ -1,23 +1,35 @@
 # fzf
 
-**官方github**：https://github.com/junegunn/fzf
+官方github：https://github.com/junegunn/fzf
 
-## fzf安装和卸载
+## fzf安装、更新和卸载
 
-### 安装fzf
+#### 安装fzf
 
 ```
-1. 脚本安装：git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+1. 脚本安装：git clone https://github.com/junegunn/fzf.git ~/.fzf --depth 1
 
 ~/.fzf/install
 
 2. 也可以使用包管理工具进行安装
 ```
 
-### 卸载fzf
+#### 更新
 
 ```
-1. 使用Uninstall scrip脚本卸载fzf
+cd ~/.fzf && git pull && ./install
+```
+
+#### 卸载
+
+```
+cd ~/.fzf/uninstall
+```
+
+## 搜索工具(the_silver_searcher)
+
+```
+sudo pacman -S the_silver_searcher
 ```
 
 ## fzf预览窗口
@@ -28,7 +40,7 @@
 sudo pacman -S bat
 ```
 
-**修改bat样式**
+#### 修改bat样式
 
 在zshrc文件中添加以下代码：
 
@@ -36,18 +48,24 @@ sudo pacman -S bat
 export BAT_STYLE="changes"
 ```
 
-## fzf能够搜索隐藏文件
-
-**安装fd**
+## 命令补全
 
 ```
-sudo pacman -S fd
-```
+vim \<Tab>
 
-在fzf.zsh文件中添加以下代码就可以搜索隐藏文件
+cd \<Tab>
 
-```
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow -E ".git" . /home /etc'
+kill -9 <Tab>
+
+ssh \<Tab>
+
+telnet \<Tab>
+
+unset \<Tab>
+
+export \<Tab>
+
+unalias \<Tab>
 ```
 
 ## fzf.vim
@@ -59,7 +77,6 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow -E ".git" . /home /etc
 使用ctrl-x以上下分屏的方式打开选中的文件
 
 使用ctrl-v是 以左右分屏的方式打开选中的文件
-
 
 ## ranger的fzf脚本
 

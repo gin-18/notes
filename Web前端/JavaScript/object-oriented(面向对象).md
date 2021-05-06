@@ -146,4 +146,41 @@ console.log(stu.sayHi === stu1.sayHi); // true
 
 ## this关键字
 
-<++>
+严格模式下指向undefined
+
+this总是返回一个对象。
+
+全局环境使用this，this指向window对象。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

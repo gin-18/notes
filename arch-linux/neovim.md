@@ -1,6 +1,6 @@
 # (neo)vim
 
-## (neo)vim配置文件的位置
+## (neo)vim配置文件
 
 (neo)vim的配置文件默认没有创建，需要手动创建。
 
@@ -23,9 +23,9 @@
 | ,                      | 把光标移动到f命令查找结果的上一个字符上     |
 | u                      | 撤销上一次的修改                            |
 | c                      | 修改操作符                                  |
-| C                      | 删除光标之后的所有文本并进出插入模式
+| C                      | 删除光标之后的所有文本并进出插入模式        |
 | d                      | 删除操作符                                  |
-| D                      | 删除光标之后的所有文本
+| D                      | 删除光标之后的所有文本                      |
 | y                      | 复制到寄存器（操作符）                      |
 | >                      | 增加缩进                                    |
 | <                      | 减少缩进                                    |
@@ -53,7 +53,8 @@
 | gj                     | 同一行的下一行                              |
 | gk                     | 同一行的上一行                              |
 | vim -u NONE -N         | 以不加载任何插件的方式启动vim               |
-| <++>                   | <++>                                        |
+| vim -                  | 命令输出结果进入vim中编辑                   |
+| :r !<command>          | 读取命令的输出结果                          |
 
 ## tab and space
 
@@ -70,10 +71,8 @@
 
 or
 
-：retab
+:retab
 ```
-
-<++>
 
 ## 查找和替换
 
@@ -83,9 +82,9 @@ substitute命令的作用是查找和替换。
 :<作用范围>s/<目标>/<替换>/<替换标志>
 ```
 
-**作用范围**
+#### 作用范围
 
-作用范围分为**当前行**，**全文**，**选区**等等。
+作用范围分为`当前行`，`全文`，`选区`等等。
 
 当前行
 
@@ -107,19 +106,6 @@ substitute命令的作用是查找和替换。
 // 在可视模式下输入：，vim会自动补全为:'<,'>
 ```
 
-## 读取文件
-
-```
-:r !cat <文件>
-```
-
-
-将vim放在后台：ctrl+z
-
-输入shell命令：fg ; 接入后台的vim
-
-
-
 ## 命令行模式
 
 在命令行模式下表示当前目录和当前文件名的方法
@@ -132,14 +118,9 @@ substitute命令的作用是查找和替换。
 %:e : 扩展名
 ```
 
-## 插入模式
+将vim放在后台：ctrl+z
 
-| 快捷键 | 描述                       |
-|--------|----------------------------|
-| C-h    | 删除前一个字符（同退格键） |
-| C-w    | 删除前一个单词             |
-| C-u    | 删除至行首                 |
-
+输入shell命令：fg ; 接入后台的vim
 
 ## 折叠
 
@@ -156,25 +137,89 @@ zE：删除窗口里的所有折叠
 
 ## 标记
 
-**创建标记**
+```
+创建标记：m + <a-z>
+跳转标记：' + <a-z>
+列出标记：命令:marks
+删除标记：命令:delmarks <a-z>
+```
 
-m命令可以创建标记，可以使用a-z或A-Z中的任意一个字母作为标记名称
+## 插件
+
+### coc
+
+#### 安装依赖
 
 ```
-m+标记名称
+1. python3
+2. python-pip
+3. nodejs
+4. npm
 ```
 
-**跳转标记**
+#### 安装neovim nodejs module
 
-'+标记名称就可以跳转的相应的标记
+```
+sudo npm install -g neovim
+```
 
-**列示标记**
+#### 安装neovim python module
 
-利用:marks命令可以列出所有标记
+```
+pip install --user pynvim
+pip3 install --user pynvim
+```
 
-**删除标记**
+ps : 不需要使用sudo命令
 
-使用:delmarks 标记名称可以删除某个或多个标记;而:delmarks!命令，则会删除所有标记
+### fzf.vim
+
+| 命令           | 描述                      |
+|----------------|---------------------------|
+| :Files [PATH]  | 查找文件                  |
+| :GFiles [OPTS] | 查找git文件(git ls-files) |
+| :GFiles?       | git status                |
+| :Commands      | 查找命令                  |
+| :Maps          | 查找键位映射              |
+| :History/      | 查找搜索历史              |
+
+### bracey.vim
+
+写html自动刷新页面
+
+安装
+
+```
+Plug 'turbio/bracey.vim'
+
+或
+
+Plug 'turbio/bracey.vim', { 'do': 'npm install --prefix server' }
+```
+
+如果报错：Connection refused
+
+```
+1. cd ~/.config/nvim/plugged/bracey.vim
+
+2. npm install --prefix server
+```
+
+### nerdtree
+
+| 按键 | 描述                       |
+|------|----------------------------|
+| !    | 执行当前文件               |
+| O    | 递归打开选中的目录         |
+| x    | 合拢选中节点的父目录       |
+| X    | 递归合拢选中节点的所有目录 |
+| P    | 跳到根节点                 |
+| p    | 跳到父节点                 |
+| r    | 递归刷新选中目录           |
+| R    | 递归刷新节点               |
+| m    | 打开文件系统菜单           |
+| I    | 显示隐藏文件               |
+| <++> | <++>                       |
 
 ## 快捷键操作
 
@@ -214,64 +259,6 @@ m+标记名称
 | <++>      | <++>                       |
 | <++>      | <++>                       |
 
-## 插件
-
-### coc配置
-
-**安装依赖**
-
-```
-1. python3
-2. python-pip
-3. nodejs
-4. npm
-```
-
-**安装neovim python module**
-
-```
-pip install --user pynvim
-pip3 install --user pynvim
-```
-
-不需要使用sudo命令
-
-**安装neovim nodejs module**
-
-```
-sudo npm install -g neovim
-
-```
-### bracey.vim
-
-写html自动刷新页面
-
-安装
-
-```
-Plug 'turbio/bracey.vim'
-
-或
-
-Plug 'turbio/bracey.vim', { 'do': 'npm install --prefix server' }
-```
-
-如果报错：Connection refused
-
-```
-1. cd ~/.config/nvim/plugged/bracey.vim
-
-2. npm install --prefix server
-```
-
-命令
-
-```
-<++>
-```
-
-<++>
-
 ### 在浮动窗口打开lazygit
 
 ```shell
@@ -301,18 +288,242 @@ function! OpenFloatingWin()
 endfunction
 ```
 
-### nerdtree
+## word
 
-| 按键 | 描述                       |
-|------|----------------------------|
-| !    | 执行当前文件               |
-| O    | 递归打开选中的目录         |
-| x    | 合拢选中节点的父目录       |
-| X    | 递归合拢选中节点的所有目录 |
-| P    | 跳到根节点                 |
-| p    | 跳到父节点                 |
-| r    | 递归刷新选中目录           |
-| R    | 递归刷新节点               |
-| m    | 打开文件系统菜单           |
-| I    | 显示隐藏文件               |
-| <++> | <++>                       |
+```
+stdin : 标准输入
+```
+
+<++>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 一个方便前端开发的neovim配置
+
+![neovim](./nvim.assets/neovim.png)
+
+## 依赖
+
+使用配置之前确保安装了以下软件包。
+
+```
+1. nodejs
+2. npm
+3. yarn
+4. python3
+5. pip
+6. nerd-fonts
+7. ctags
+8. fzf
+9. bat
+10. ag(the_silver_searcher)
+11. xclip
+```
+
+### npm安装neovim
+
+```
+sudo npm install -g neovim
+```
+
+### pip安装pynvim
+
+```
+pip3 install --user pynvim
+
+pip install --user pynvim
+```
+
+## 快捷键
+
+`leader`键为`空格键`。
+
+| 快捷键            | 描述                           |
+|-------------------|--------------------------------|
+| `s`               | 保存                           |
+| `S`               | 保存退出                       |
+| `Q`               | 不保存退出                     |
+| `H`               | 光标跳到行首                   |
+| `L`               | 光标跳到行尾                   |
+| `J`               | 光标向下移动5行                |
+| `K`               | 光标向上移动5行                |
+| `leader` `left`   | 左右分屏，光标在左分屏         |
+| `leader` `down`   | 上下分屏，光标在下分屏         |
+| `alt` `shift` `h` | 光标移动到左分屏               |
+| `alt` `shift` `j` | 光标移动到下分屏               |
+| `alt` `shift` `k` | 光标移动到上分屏               |
+| `alt` `shift` `l` | 光标移动到右分屏               |
+| `shift` `up`      | 上下分屏时，增加分屏高度       |
+| `shift` `down`    | 上下分屏时，减少分屏高度       |
+| `shift` `left`    | 左右分屏时，增加分屏宽度       |
+| `shift` `right`   | 左右分屏时，减少分屏宽度       |
+| `leader` `n` `t`  | 打开一个新标签                 |
+| `tab` `h`         | 切换到上一个标签               |
+| `tab` `l`         | 切换到下一个标签               |
+| `alt` `t`         | 在底部打开一个终端             |
+| `Y`               | 在可视模式下，复制到系统剪贴板 |
+| `alt` `p`         | 从系统剪贴板粘贴               |
+| `leader` `n` `h`  | 取消搜索结果的高亮             |
+| `leader` `s` `c`  | 打开拼写检查                   |
+
+## 插件
+
+**插件管理器**：[vim-plug](https://github.com/junegunn/vim-plug)
+
+### coc(自动补全)
+
+---
+
+**插件地址**：[coc.nvim](https://github.com/neoclide/coc.nvim)
+
+| 快捷键           | 描述                     |
+|------------------|--------------------------|
+| `leader` `g` `d` | 跳转到函数定义的地方     |
+| `leader` `g` `r` | 跳转到代码报错的地方     |
+| `leader` `k`     | 显示当前光标下单词的文档 |
+
+![coc](./nvim.assets/coc.gif)
+
+### bracey(自动刷新页面)
+
+---
+
+**插件地址**：[bracey.vim](https://github.com/turbio/bracey.vim)
+
+| 快捷键    | 描述       |
+|-----------|------------|
+| `alt` `i` | 启动bracey |
+
+![bracey](./nvim.assets/bracey.gif)
+
+### fzf(模糊搜索)
+
+---
+
+**插件地址**：[fzf.vim](https://github.com/junegunn/fzf.vim)
+
+| 快捷键     | 描述                 |
+|------------|----------------------|
+| `alt` `f`  | 查找文件             |
+| `alt` `b`  | 查找Buffers          |
+| `alt` `h`  | 查找最近打开过的文件 |
+| `ctrl` `j` | 向下移动一格         |
+| `ctrl` `k` | 向上移动一格         |
+
+![fzf](./nvim.assets/fzf.gif)
+
+### nerdtree(文件浏览)
+
+---
+
+**插件地址**：[nerdtree](https://github.com/preservim/nerdtree)
+
+| 快捷键    | 描述           |
+|-----------|----------------|
+| `alt` `e` | 打开nerdtree   |
+| `q`       | 退出nerdtree   |
+| `?`       | 打开帮助文档   |
+| `o`       | 打开目录或文件 |
+| `I`       | 显示隐藏文件   |
+| `u`       | 返回上一级目录 |
+| `m`       | 打开菜单       |
+
+![nerdtree](./nvim.assets/nerdtree.png)
+
+### vista(tags工具)
+
+---
+
+**插件地址**：[vista.vim](https://github.com/liuchengxu/vista.vim)
+
+| 快捷键            | 描述          |
+|-------------------|---------------|
+| `alt` `v`         | 打开vista     |
+| `alt` `shift` `v` | 打开vista搜索 |
+| `q`               | 退出vista     |
+| `p`               | 预览          |
+
+![vista](./nvim.assets/vista.png)
+
+![vista-finder](./nvim.assets/vista-finder.png)
+
+### markdown-preview(markdown预览)
+
+---
+
+**插件地址**：[markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)
+
+| 快捷键    | 描述                 |
+|-----------|----------------------|
+| `alt` `m` | 打开markdown-preview |
+
+使用`chromium`浏览器预览，可以在`plugin/markdown-preview.vim`中修改。
+
+![markdown-preview](./nvim.assets/markdown-preview.png)
+
+### vim-table-mode(表格模板)
+
+---
+
+**插件地址**：[vim-table-mode](https://github.com/dhruvasagar/vim-table-mode)
+
+| 快捷键            | 描述               |
+|-------------------|--------------------|
+| `alt` `shift` `t` | 打开vim-table-mode |
+
+![table-mode](./nvim.assets/table-mode.gif)
+
+### dict(翻译)
+
+---
+
+**插件地址**：[dict.vim](https://github.com/iamcco/dict.vim)
+
+| 快捷键       | 描述                   |
+|--------------|------------------------|
+| `alt` `w`    | 输入需要翻译的单词     |
+| `leader` `t` | 翻译当前光标下的单词   |
+| `leader` `r` | 翻译并替换光标下的单词 |
+
+![dict](./nvim.assets/dict.gif)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

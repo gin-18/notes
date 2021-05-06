@@ -385,6 +385,9 @@ station <设备名> connent <网络名称>
 51. retroarch
 52. retroarch-assets-xmb
 53. retroarch-assets-ozone
+54. nordic-darker-theme
+55. nordic-theme
+56. the_silver_searcher
 ```
 
 ### nvidia显卡驱动
@@ -488,7 +491,6 @@ passwd gin
 ```
 1. ttf-symbola
 2. adobe-source-code-pro
-3. ttf-jetbrains-mono
 4. nerd-fonts-complete
 5. wqy-zenhei 
 6. ttf-inconsolata 
