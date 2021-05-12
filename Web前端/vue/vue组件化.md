@@ -1,34 +1,4 @@
-# vue
-
-引入: <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-## MVVM
-
-Model: 模型层
-
-View: 视图层
-
-ViewModel: 连接视图和数据的中间件，vue.js就是MVVM中的ViewModel层的实现者
-
-在MVVM架构中，是不允许数据直接和视图通信的，只能通过ViewModel来通信。
-
-ViewModel能够观察数据的变化，并对视图对应的内容进行更新。
-
-ViewModel能够监听视图的变化，并能够同时数据发生改变。
-
-vue.js就是一个MVVM的实现者，vue的核心就是实现了dom监听和数据绑定。
-
-View层展示的不是Model层的数据，而是ViewModel层的数据。由ViewModel层负责与Model层交互。vue完全解偶了View层和Model层，这是前后端分离实现的重要一环。
-
-## mustache
-
-<++>
-
-## Vue指令
-
-<++>
-
-## Vue组件化
+# Vue组件化
 
 ### 注册全局组件
 
@@ -144,7 +114,3 @@ Vue.component({
 ---
 
 在父组件中注册子组件，则定义了components属性的组件构造器为父组件。
-
-## ES6模块化
-
-<++>
