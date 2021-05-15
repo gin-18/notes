@@ -619,15 +619,19 @@ pulseaudio --start
 
 #### 使用bluetoothctl工具连接蓝牙
 
-```
+```shell
 # 启动bluetoothctl交互命令
 bluetoothctl
 
-# 打开控制器电源，默认关闭
-power on
-
 # 打开代理(官方推荐)
 agent on
+
+agent KeyboardOnly
+
+default-agent
+
+# 打开控制器电源，默认关闭
+power on
 
 # 获取设备的MAC地址
 devices
