@@ -8,7 +8,7 @@ Arch Linux官方安装向导：https://wiki.archlinux.org/index.php/Installation
 
 ## VirtualBox打开EFI
 
-![vbox-efi](./arch-linux.assets/vbox-efi.png)
+![vbox-efi](./screenshot/vbox-efi.png)
 
 勾选"Enable EFI"以在VirtualBox中打开EFI。
 
@@ -77,27 +77,27 @@ cfdisk
 
 输入命令进入**cfdisk**界面。
 
-![cfdisk](./arch-linux.assets/cfdisk.png)
+![cfdisk](./screenshot/cfdisk.png)
 
 BIOS选择" dos "，UEFI选择" gpt "。
 
-![gpt](./arch-linux.assets/gpt.png)
+![gpt](./screenshot/gpt.png)
 
 " New "创建一个新分区，并输入分区大小。
 
-![input](./arch-linux.assets/input.png)
+![input](./screenshot/input.png)
 
 " Type "选择分区类型。
 
-![type](./arch-linux.assets/type.png)
+![type](./screenshot/type.png)
 
 (boot分区)选择EFI System，(swap分区)选择Linux swap，(系统分区)选择Linux filesystem。
 
-![type](./arch-linux.assets/type-01.png)
+![type](./screenshot/type-01.png)
 
 分区完成，" Write "写入磁盘。
 
-![write](./arch-linux.assets/write.png)
+![write](./screenshot/write.png)
 
 #### BIOS磁盘分区
 
@@ -112,7 +112,7 @@ swap分区：自定义
 | swap   | Linux swap(交换分区) |
 | /mnt   | Linux(系统分区)      |
 
-![dos](./arch-linux.assets/dos.png)
+![dos](./screenshot/dos.png)
 
 #### UEFI磁盘分区
 
@@ -130,7 +130,7 @@ swap分区：自定义。
 | swap      | Linux swap(交换分区) |
 | /mnt      | Linux                |
 
-![gpt](./arch-linux.assets/write.png)
+![gpt](./screenshot/write.png)
 
 ### 磁盘格式化
 
@@ -226,7 +226,7 @@ mount /dev/sda1 /mnt/boot
 vim /etc/pacman.d/mirrorlist
 ```
 
-![pacman](./arch-linux.assets/pacman.png)
+![pacman](./screenshot/pacman.png)
 
 ### 安装系统
 
