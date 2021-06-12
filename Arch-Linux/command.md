@@ -104,9 +104,61 @@ tar -jxvf <包名> -C <指定目录>
 
 解压缩：x
 
+## xclip
+
+复制到剪贴板
+
+```
+
+```
+
+<++>
+
+## import
+
+抓取选区
+
+```
+import a.png
+```
+
+延时抓取
+
+```
+sleep 5;import a.png
+```
+
+截取窗口
+
+```
+import -frame a.png
+```
+
+抓取桌面
+
+```
+import -window root a.png
+```
+
+### ffmpeg
+
+截图
+
+```
+# 截取一帧
+ffmpeg -ss <start time> -i input -vframes 1 -q:v <1-5> output.png
+```
+
+裁剪
+
+```
+ffmpeg -ss <start time> -i input.mp4 -t <time num> -c copy output.mp4
+```
+
 ## convert
 
 <++>
+
 
 
 

@@ -59,6 +59,42 @@ docker run hello-world
 
 <++>
 
+## 镜像
+
+拉取镜像
+
+```shell
+docker pull <image>:<tag>
+```
+
+查看镜像
+
+```shell
+docker images
+```
+
+删除镜像
+
+```shell
+docker rmi <image id>
+```
+
+镜像导入与导出
+
+```shell
+# 导出
+docker save -o <path/name.image> <image id>
+
+# 导入
+docker load -i <name.image>
+
+# 改名
+docker tag <image id> <name>:<tag>
+```
+
+## 容器
+
+<++>
 
 
 

@@ -20,7 +20,7 @@ git有三种状态，文件可能处于其中一种：**已提交(committed)**�
 
 这会让git项目拥有3个阶段：**工作区**，**暂存区**，**git目录**
 
-![git](./screenshot/2021-02-17_23-27.png)
+![git](./images/2021-02-17_23-27.png)
 
 工作区是对项目的某个版本独立提取出来的内容。这些从git仓库的压缩数据库中提取出来的文件，放在磁盘上提供使用和修改
 
@@ -130,7 +130,7 @@ git clone <url>
 
 编辑过某些文件之后，由于自上次提交后对文件进行了修改，git将他们标记为已修改的文件。在工作时，可以选择性地将这些修改过的文件添加到暂存区中，然后提交所有已暂存的修改，如此反复
 
-![git](./screenshot/2021-02-18_00-56.png)
+![git](./images/2021-02-18_00-56.png)
 
 ### 跟踪新文件
 
@@ -321,6 +321,26 @@ git remote set-url origin <url>
 ```
 
 ## lazygit
+
+
+## github生成toc
+
+```sh
+wget https://raw.githubusercontent.com/ekalinin/github-markdown-toc/master/gh-md-toc
+
+chmod a+x gh-md-toc
+
+./gh-md-toc <file>
+```
+
+
+
+
+
+
+
+
+
 
 
 
