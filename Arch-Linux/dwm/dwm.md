@@ -93,6 +93,8 @@ startx
 
 默认的`MODKEY`是`Alt`键。
 
+`MODKEY`键是可改变的，`Mod1Mask`表示`Alt`键，`Mod4Mask`表示`window`键。
+
 按下`MODKEY`+`Shift`+`Enter`启动终端。
 
 ![dwm](./images/dwm.png)
@@ -102,7 +104,7 @@ startx
 ```sh
 # auto startx
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-	exec startx
+  exec startx
 fi
 ```
 
@@ -226,7 +228,7 @@ xsetroot -name "hello dwm"
 
 例：
 
-在状态栏右侧显示系统时间。
+系统启动时，在状态栏右侧显示系统时间。
 
 打上`dwm-autostart-20161205-bb3bd6f.diff`后，在`dwm.c`文件中找到以下代码：
 
@@ -247,7 +249,23 @@ runAutostart(void) {
 }
 ```
 
-<++>
+`autostart.sh`脚本的内容如下：
+
+```sh
+#!/bin/sh
+
+dwm_date () {
+  date '+%Y年%m月%d日 %a %H:%M'
+}
+
+while true
+do
+  xsetroot -name "$(dwm_date)"
+  sleep 1
+done
+```
+
+![dwm-date](./images/dwm-date-script.png)
 
 
 
