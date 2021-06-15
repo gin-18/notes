@@ -66,6 +66,7 @@
 61. qt5-styleplugins
 62. gthumb
 63. xfce4-power-manager
+64. ueberzug
 ```
 
 ### nvidia显卡驱动

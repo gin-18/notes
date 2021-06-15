@@ -1,44 +1,52 @@
 # Arch Linux
 
-Arch Linux官方安装向导：https://wiki.archlinux.org/index.php/Installation_guide
+`Arch Linux`官方安装向导：https://wiki.archlinux.org/index.php/Installation_guide
 
-## 下载镜像
+[TOC]
 
-官方网址：https://archlinux.org/download/
+## 1. 下载镜像
 
-## VirtualBox打开EFI
+官方镜像下载地址：https://archlinux.org/download/
+
+## 2. VirtualBox 打开 EFI
+
+勾选`Enable EFI`可以在`VirtualBox`中打开`EFI`。
 
 ![vbox-efi](./images/vbox-efi.png)
 
-勾选"Enable EFI"以在VirtualBox中打开EFI。
-
-## 安装
+## 3. 安装 Arch Linux
 
 ### 验证启动方式
 
 ---
 
-```
+使用以下命令可以验证启动方式是`UEFI`还是`BIOS`。
+
+```sh
 ls /sys/firmware/efi/efivars
 ```
 
-如果命令没有报错，则使用的是UEFI;如果目录不存在则可能使用的是BIOS。
+如果命令没有报错，则使用的是`UEFI`。
+
+如果目录不存在则可能使用的是`BIOS`。
 
 ### 连接互联网
 
 ---
 
-安装Arch Linux必须连通网络。
+安装`Arch Linux`必须连通网络。
 
-可以插入网线或使用wifi。
+可以插入`网线`或使用`wifi`。
 
-如果使用的是虚拟机，则不需要进行这一步操作。
+如果使用`虚拟机`，则不需要进行这一步操作。
 
-#### 连接wifi
+#### 连接 wifi
 
-使用"iwd"连接wifi
+---
 
-```
+使用`iwd`连接`wifi`。
+
+```sh
 # 进入iwd交互界面
 iwctl
 
@@ -59,7 +67,7 @@ station <设备名> connent <网络名称>
 
 ---
 
-```
+```sh
 timedatectl set-ntp true
 ```
 
@@ -67,45 +75,51 @@ timedatectl set-ntp true
 
 ---
 
-可以使用fdisk命令进行磁盘分区，也可以使用cfdisk命令进行磁盘分区。
+可以使用`fdisk`命令进行磁盘分区，也可以使用`cfdisk`命令进行磁盘分区。
 
-cfdisk命令拥有交互界面。
+`cfdisk`命令拥有交互界面。
 
-```
+```sh
 cfdisk
 ```
 
-输入命令进入**cfdisk**界面。
+输入命令进入`cfdisk`界面。
 
 ![cfdisk](./images/cfdisk.png)
 
-BIOS选择" dos "，UEFI选择" gpt "。
+`BIOS`选择`dos`，`UEFI`选择`gpt`。
 
 ![gpt](./images/gpt.png)
 
-" New "创建一个新分区，并输入分区大小。
+`New`创建一个新分区，并输入分区大小。
 
 ![input](./images/input.png)
 
-" Type "选择分区类型。
+`Type`选择分区类型。
 
 ![type](./images/type.png)
 
-(boot分区)选择EFI System，(swap分区)选择Linux swap，(系统分区)选择Linux filesystem。
+`boot分区`选择`EFI System`，`swap分区`选择`Linux swap`，`系统分区`选择`Linux filesystem`。
 
 ![type](./images/type-01.png)
 
-分区完成，" Write "写入磁盘。
+分区完成，`Write`写入磁盘。
 
 ![write](./images/write.png)
 
-#### BIOS磁盘分区
+#### BIOS 磁盘分区
 
-BIOS只需要分2个区，swap分区和系统分区。
+---
 
-swap分区：自定义
+`BIOS`只需要分`2个区`，`swap分区`和`系统分区`。
 
-系统分区：剩余大小
+**分区大小：**
+
+`swap分区`：自定义
+
+`系统分区`：剩余大小
+
+**分区类型：**
 
 | 挂载点 | 分区类型             |
 |--------|----------------------|
@@ -114,15 +128,21 @@ swap分区：自定义
 
 ![dos](./images/dos.png)
 
-#### UEFI磁盘分区
+#### UEFI 磁盘分区
 
-UEFI需要创建3个分区：boot分区(启动分区)，swap分区，系统分区。
+---
 
-boot分区：" 512M-1G "之间。
+`UEFI`需要创建`3个分区`：`boot分区(启动分区)`，`swap分区`，`系统分区`。
 
-swap分区：自定义。
+**分区大小：**
 
-系统分区：剩余大小。
+`boot分区`：" 512M-1G "之间。
+
+`swap分区`：自定义。
+
+`系统分区`：剩余大小。
+
+**分区类型：**
 
 | 挂载点    | 分区类型             |
 |-----------|----------------------|
@@ -136,83 +156,93 @@ swap分区：自定义。
 
 ---
 
-#### BIOS磁盘格式化
+#### BIOS 磁盘格式化
 
-格式化系统分区
+---
 
-```
+格式化`系统分区`。
+
+```sh
 mkfs.ext4 /dev/sda2
 ```
 
-格式化swap分区
+格式化`swap分区`。
 
-```
+```sh
 mkswap /dev/sda1
 ```
 
-激活swap分区
+激活`swap分区`。
 
-```
+```sh
 swapon /dev/sda1
 ```
 
-#### UEFI磁盘格式化
+#### UEFI 磁盘格式化
 
-格式化boot分区
+---
 
-```
+格式化`boot分区`。
+
+```sh
 mkfs.fat -F32 /dev/sda1
 ```
 
-格式化系统分区
+格式化`系统分区`。
 
-```
+```sh
 mkfs.ext4 /dev/sda3
 ```
 
-格式化swap分区
+格式化`swap分区`。
 
-```
+```sh
 mkswap /dev/sda2
 ```
 
-激活swap分区
+激活`swap分区`。
 
-```
+```sh
 swapon /dev/sda2
 ```
 
 ### 挂载
 
-BIOS只需要挂载系统分区
+---
 
-UEFI需要挂载boot分区(启动分区)和系统分区
+`BIOS`只需要挂载`系统分区`。
 
-#### BIOS挂载
+`UEFI`需要挂载`boot分区(启动分区)`和`系统分区`。
 
-将系统分区/dev/sda2挂载到/mnt目录
+#### BIOS 挂载
 
-```
+---
+
+将`系统分区`/dev/sda2挂载到`/mnt目录`。
+
+```sh
 mount /dev/sda2 /mnt
 ```
 
-#### UEFI挂载
+#### UEFI 挂载
 
-将系统分区/dev/sda3挂载到/mnt目录
+---
 
-```
+将`系统分区`/dev/sda3挂载到`/mnt目录`。
+
+```sh
 mount /dev/sda3 /mnt
 ```
 
-创建boot分区的挂载点
+创建`boot分区`的`挂载点`。
 
-```
+```sh
 mkdir /mnt/boot
 ```
 
-将boot分区/dev/sda1挂载到/mnt/boot目录
+将`boot分区`/dev/sda1挂载到`/mnt/boot目录`。
 
-```
+```sh
 mount /dev/sda1 /mnt/boot
 ```
 
@@ -220,9 +250,9 @@ mount /dev/sda1 /mnt/boot
 
 ---
 
-将中国的源放置到最前面
+将`中国的源`放置到最前面。
 
-```
+```sh
 vim /etc/pacman.d/mirrorlist
 ```
 
@@ -232,17 +262,17 @@ vim /etc/pacman.d/mirrorlist
 
 ---
 
-```
+```sh
 pacstrap /mnt base linux linux-firmware
 ```
 
-等待系统安装完成
+等待系统安装完成。
 
 ### 配置系统
 
 ---
 
-```
+```sh
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
 
@@ -250,7 +280,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 ---
 
-```
+```sh
 arch-chroot /mnt
 ```
 
@@ -260,7 +290,7 @@ arch-chroot /mnt
 
 ---
 
-```
+```sh
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 
@@ -268,7 +298,7 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 ---
 
-```
+```sh
 hwclock --systohc
 ```
 
@@ -276,27 +306,27 @@ hwclock --systohc
 
 ---
 
-进入系统后没有编辑器，下载需要的编辑器
+进入系统后没有编辑器，下载需要的编辑器。
 
-```
+```sh
 pacman -S neovim
 ```
 
-修改/etc/locale.gen文件，去掉en_US.UTF-8 UTF-8的注释
+修改`/etc/locale.gen`文件，去掉`en_US.UTF-8 UTF-8`的注释。
 
-```
+```sh
 nvim /etc/locale.gen
 ```
 
-再执行locale-gen
+再执行`locale-gen`。
 
-```
+```sh
 locale-gen
 ```
 
-创建/etc/locale.conf文件，并在/etc/locale.conf文件中添加"LANG=en_US.UTF-8"
+创建`/etc/locale.conf`文件，并在`/etc/locale.conf`文件中添加`LANG=en_US.UTF-8`。
 
-```
+```sh
 nvim /etc/locale.conf
 
 # 添加以下内容
@@ -307,17 +337,18 @@ LANG=en_US.UTF-8
 
 ---
 
-创建/etc/hostname文件，在文件中添加自己的主机名
+创建`/etc/hostname`文件，在文件中添加自己的`主机名`。
 
-```
+```sh
 nvim /etc/hostname
 
 # 添加自己的主机名
+arch-test-01
 ```
 
-添加hosts，在/etc/hosts中添加以下内容：
+添加`hosts`，在`/etc/hosts`中添加以下内容：
 
-```
+```sh
 127.0.0.1     localhost
 
 ::1           localhost
@@ -329,7 +360,7 @@ nvim /etc/hostname
 
 ---
 
-```
+```sh
 passwd
 ```
 连续输入两次密码即可。
@@ -340,53 +371,55 @@ passwd
 
 ---
 
-#### BIOS安装grub引导程序
+#### BIOS 安装 grub 引导程序
 
-BIOS只需要安装grub
+---
 
-安装" grub "
+`BIOS`只需要安装`grub`。
 
-```
+安装`grub`软件包。
+
+```sh
 pacman -S grub
 ```
 
-grub安装
+`grub`安装。
 
-```
+```sh
 grub-install --target=i386-pc /dev/sda
 ```
 
-生成grub的配置文件
+生成`grub`的配置文件。
 
-```
+```sh
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-#### UEFI安装grub引导程序
+#### UEFI 安装 grub 引导程序
 
-UEFI需要额外安装"efibootmgr"
+---
 
-```
+`UEFI`需要额外安装`efibootmgr`。
+
+```sh
 pacman -S grub efibootmgr
 ```
 
-grub安装
+`grub`安装。
 
-```
+```sh
 grub-install --target=x86_64-efi --efi-directory=/boot
 ```
 
-生成grub的配置文件
+生成`grub`的配置文件。
 
-```
+```sh
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-#### ps:
+根据`cpu`选择安装`intel-ucode`或`amd-ucode`。
 
-根据cpu选择安装"intel-ucode"或"amd-ucode"
-
-```
+```sh
 pacman -S intel-ucode
 
 或
@@ -394,84 +427,73 @@ pacman -S intel-ucode
 pacman -S amd-ucode
 ```
 
-双系统需要额外安装"os-prober"
+`双系统`需要额外安装`os-prober`。
 
-```
+```sh
 sudo pacman -S os-prober
 ```
 
-### 安装dhcpcd和iwd
+### 安装 dhcpcd 和 iwd
 
-dhcpcd用于新系统动态分配ip地址
+---
 
-iwd用于新系统连接wifi
+`dhcpcd`用于新系统`动态分配ip地址`。
 
-```
+`iwd`用于新系统连接`wifi`。
+
+```sh
 pacman -S dhcpcd iwd
 ```
 
 ### 退出系统
 
-```
+---
+
+```sh
 exit
 ```
 
 ### 取消挂载
 
-```
+---
+
+```sh
 umount -R /mnt
 ```
 
 ### 重启电脑
 
-```
+---
+
+```sh
 reboot
 ```
 
-## 重启进入系统后的设置
+## 4. 重启进入系统后的设置
 
 ### 联网设置
 
 ---
 
-启动dhcpcd
+启动`dhcpcd`。
 
-```
+```sh
 systemctl start dhcpcd
 
 systemctl enable dhcpcd
 ```
 
-wifi连接
+启动`iwd`。
 
-```
+```sh
 systemctl start iwd
 
 systemctl enable iwd
 ```
 
-iwd交互命令
+网络设置好后，可以ping一下看网络是否连通。
 
-```
-# 进入iwd交互界面
-iwctl
-
-# 查看设备
-device list
-
-# 扫描网络
-station <设备名> sacn
-
-# 查看网络名称
-station <设备名> get-networks
-
-# 连接网络
-station <设备名> connent <网络名称>
-```
-
-设置好后可以ping一下看网络是否连通
-
-```
+```sh
 ping baidu.com
 ```
 
@@ -479,7 +501,7 @@ ping baidu.com
 
 ---
 
-```
+```sh
 pacman -Syyu
 ```
 
@@ -487,7 +509,7 @@ pacman -Syyu
 
 ---
 
-```
+```sh
 pacman -S base-devel
 ```
 
@@ -495,29 +517,29 @@ pacman -S base-devel
 
 ---
 
-```
-pacman -S -mG wheel <用户名>
+```sh
+useradd -mG wheel <用户名>
 ```
 
 ### 给新用户设置密码
 
 ---
 
-```
+```sh
 passwd <用户名>
 ```
 
-### 修改/etc/sudoers文件
+### 修改 /etc/sudoers 文件
 
 ---
 
-```
+```sh
 nvim /etc/sudoers
 ```
 
-在/etc/sudoers文件中找到以下行,并将这一行的注释放开以可以使用**sudo**命令
+在`/etc/sudoers`文件放开注释就可以使用`sudo`命令。
 
-```
+```sh
 %wheel ALL=(ALL) ALL
 ```
 
@@ -525,12 +547,10 @@ nvim /etc/sudoers
 
 ---
 
-```
+```sh
 exit
 ```
 
 使用新用户登录
 
-## 安装完成
-
-待更：dwm...
+![arch-user](./images/arch-user.png)

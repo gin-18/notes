@@ -54,6 +54,12 @@ sudo pacman -Qm
 sudo pacman -Qdt
 ```
 
+查看命令依赖的软件包
+
+```sh
+sudo pacman -Fy <命令>
+```
+
 在`/etc/pacman.conf`文件中，找到以下代码，将`Color`字段的注释放开并添加`ILoveCandy`。
 
 效果为`pacman`的输出信息拥有颜色，并且进度条为`吃豆人`的样式。

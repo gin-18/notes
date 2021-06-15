@@ -22,10 +22,30 @@ cd yay
 makepkg -si
 ```
 
+如果在安装`yay`的过程中报以下错误，是因为`GOPROXY`不支持所在的地区。
+
+```sh
+go build -trimpath -mod=readonly -modcacherw  -ldflags '-X "main.yayVersion=10.2.2" -X "main.localePath=/usr/share/locale/" -linkmode=external' -buildmode=pie -o yay
+go: github.com/Jguer/go-alpm/v2@v2.0.5: Get "https://proxy.golang.org/github.com/%21jguer/go-alpm/v2/@v/v2.0.5.mod": dial tcp 216.58.200.241:443: i/o timeout
+make: *** [Makefile:112: yay] Error 1
+==> ERROR: A failure occurred in build().
+    Aborting...
+```
+
+设置`GOPROXY`以解决以上问题。
+
+```sh
+# 设置 GOPROXY
+echo "export GOPROXY=https://goproxy.cn" >> ~/.profile
+
+# 重新加载 .profile文件
+source ~/.profile
+```
+
 ## 3. 安装字体
 
 ```sh
-sudo pacman -S ttf-fira-code wqy-zenhei
+sudo pacman -S ttf-fira-code ttf-nerd-fonts-symbols-mono wqy-zenhei
 
 yay -S ttf-symbola nerd-fonts-complete
 ```
@@ -61,6 +81,15 @@ git clone https://git.suckless.org/dwm
 ```c
 /* 将其中的st修改为安装的终端模拟器 */
 static const char *termcmd[] = { "st", NULL};
+```
+
+修改`config.mk`文件。
+
+```sh
+# 修改 config.mk 文件
+X11INC = /usr/X11R6/include               X11INC = /usr/include/X11
+                                 ->        
+X11LIB = /usr/X11R6/lib                   X11LIB = /usr/lib/X11
 ```
 
 ## 6. 编译安装 dwm
