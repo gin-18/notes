@@ -22,7 +22,7 @@ unlocker工具需要python3环境
 
 注视掉自动下载：有gettools.py的那一行
 
-![autoload](./macOS.assets/20200417014900339.png)
+![](./images/20200417014900339.png)
 
 以管理员身份运行unlocker中的win-install.cmd文件
 
@@ -48,6 +48,35 @@ darwin.iso文件在com.vmware.fusion.zip.tar文件有：com.vmware.fusion.zip.ta
 ## homebrewCN
 
 homebrewCN的gitee的地址：https://gitee.com/cunkai/HomebrewCN
+
+## Mac下ssh
+
+#### 启动ssh
+
+```
+sudo launchctl load -w /System/Library/LaunchctlDaemons/ssh.plist
+```
+
+#### 停止ssh
+
+```
+sudo launchctl unload /System/Library/LaunchctlDaemons/ssh.plist
+```
+
+#### 查看ssh
+
+```
+sudo launchctl list | grep sshd
+```
+
+命令执行结果是：-	0	com.openssh.sshd。
+
+说明`ssh`服务已经开启。
+
+
+
+
+
 
 ## Mac安装Windows10
 
@@ -177,3 +206,6 @@ virtualbox : https://www.virtualbox.org/wiki/Downloads
 选择自定义安装
 
 购买链接 : https://www.microsoft.com/zh-cn/windows/get-windows-10
+
+
+

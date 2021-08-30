@@ -26,7 +26,6 @@ ranger --copy-config=all
 sudo pacman -S ueberzug
 ```
 
-
 在`~/.config/ranger/rc.conf`文件中找到以下代码：
 
 ```sh

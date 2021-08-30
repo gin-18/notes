@@ -9,7 +9,7 @@ linux可以分为以下4部分:
 4. 应用软件
 ```
 
-![linux系统](./Linux.assets/2021-03-26_01-45.png)
+![linux系统](./images/2021-03-26_01-45.png)
 
 ## linux内核
 

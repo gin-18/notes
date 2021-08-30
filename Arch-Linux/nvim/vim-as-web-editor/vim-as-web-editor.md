@@ -58,4 +58,35 @@ endsnippet
 |-----------|------------|
 | `alt` `i` | 启动bracey |
 
-![bracey](./images/bracey.gif)<++>
+![bracey](./images/bracey.gif)
+
+## git 客户端 (lazygit)
+
+github地址：[lazygit](https://github.com/jesseduffield/lazygit)
+
+`lazygit`是终端下的`git`客户端，且使用`vim`的快捷键。
+
+```sh
+# arch linux 下安装 lazygit
+sudo pacman -S lazygit
+```
+
+可以在配置文件中添加快捷键，以在`vim`中快速打开`lazygit`。
+
+```vim
+" 映射 alt + g 快捷键以打开 lazygit
+noremap <M-g> :new<CR>:term lazygit<CR>i
+```
+
+![vim-lazygit](./images/vim-lazygit.gif)
+
+
+
+
+
+
+
+
+
+
+
