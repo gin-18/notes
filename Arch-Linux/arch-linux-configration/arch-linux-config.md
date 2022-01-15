@@ -18,6 +18,7 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 ```
 sudo pacman -S archlinuxcn-keyring
 ```
+
 ## nvidia显卡驱动
 
 查看显卡和显卡驱动
@@ -31,9 +32,50 @@ lspci -k | grep -A 2 -E "(VGA|3D)"
 ```
 sudo pacman -S nvidia
 ```
+
+## 安装git
+
+```sh
+sudo pacman -S git
+```
+
+添加`raw.githubusercontent.com`到`/etc/hosts`
+
+```sh
+185.199.108.133 raw.githubusercontent.com
+```
+
+克隆仓库
+
+```sh
+git clone https://github.com/GIN-18/Dotfiles.git .config
+
+git clone https://github.com/GIN-18/suckless.git
+
+# 将.config/some目录下的配置文件复制到家目录下
+cp $HOME/.config/some/* $HOME
+```
+
 ## zsh & zinit
 
-<++>
+GitHub：[zinit](https://github.com/zdharma-continuum/zinit)
+
+
+安装zsh并切换到zsh
+
+```sh
+sudo pacman -S zsh;chsh -s /bin/zsh
+```
+
+安装zinit
+
+```sh
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+mkdir -p "$(dirname $ZINIT_HOME)"
+
+git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+```
 
 ## fcitx5 输入法
 
