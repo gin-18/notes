@@ -156,6 +156,42 @@ pair MAC_address
 connent MAC_address
 ```
 
+## 双系统grub添加Windows10引导启动项
+
+如果grub引导界面没有Win10启动项，则需要手动添加。
+
+查看Win10的EFI启动项在磁盘的哪个分区
+
+```sh
+fdisk -l
+```
+
+![fdisk-l](./screenshot/fdisk-l.png)
+
+输出结果中`Size Type`表示分区类型，显示EFI的就是引导分区，找到Win10的引导分区的设备号
+
+查看分区的`uuid`，使用`blkid`命令或`grub`命令均可
+
+```sh
+blkid /dev/nvme0n1p1
+
+或者
+
+grub-probe -t fs_uuid -d /dev/nvme0n1p1
+```
+
+在`/boot/grub/grub.cfg`的30_osprobe文件中添加以下代码(其中`xxxx-xxxx`是分区的`uuid`)
+
+```
+menuentry 'Microsoft Windows 10' {
+  insmod part_gpt
+  insmod fat
+  insmod chain
+  search --fs-uuid --no-floppy --set=root xxxx-xxxx
+  chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
+}
+```
+
 ## 虚拟机
 
 ### virtualbox

@@ -112,10 +112,10 @@ grub-probe -t fs_uuid -d /dev/nvme0n1p1<设备号>
 ```
 menuentry 'Microsoft Windows 10' {
   insmod part_gpt
-	insmod fat
-	insmod chain
-	search --fs-uuid --no-floppy --set=root xxxx-xxxx
-	chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
+  insmod fat
+  insmod chain
+  search --fs-uuid --no-floppy --set=root xxxx-xxxx
+  chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
 }
 ```
 
