@@ -77,6 +77,46 @@ mkdir -p "$(dirname $ZINIT_HOME)"
 git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 ```
 
+## grub2-themes
+
+GitHub：[grub2-themes](https://github.com/vinceliuice/grub2-themes)
+
+克隆仓库
+
+```sh
+git clone https://github.com/vinceliuice/grub2-themes.git && cd grub2-themes
+```
+
+安装
+
+```sh
+sudo ./install.sh -t vimix -s 4k
+```
+
+重新生产`grub`配置文件
+
+```sh
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+### grub.cfg
+
+```
+menuentry "System shutdown" --class shutdown {
+	echo "System shutting down..."
+	halt
+}
+
+menuentry "System restart" --class restart {
+	echo "System rebooting..."
+	reboot
+}
+
+menuentry 'UEFI Firmware Settings' $menuentry_id_option 'uefi-firmware' --class find.efi {
+	fwsetup
+}
+```
+
 ## fcitx5 输入法
 
 ArchWiki：[fcitx5](https://wiki.archlinux.org/title/Fcitx5)
@@ -183,12 +223,12 @@ grub-probe -t fs_uuid -d /dev/nvme0n1p1
 在`/boot/grub/grub.cfg`的30_osprobe文件中添加以下代码(其中`xxxx-xxxx`是分区的`uuid`)
 
 ```
-menuentry 'Microsoft Windows 10' {
-  insmod part_gpt
-  insmod fat
-  insmod chain
-  search --fs-uuid --no-floppy --set=root xxxx-xxxx
-  chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
+menuentry 'Microsoft Windows 10' --class windows {
+    insmod part_gpt
+    insmod fat
+    insmod chain
+    search --fs-uuid --no-floppy --set=root xxxx-xxxx
+    chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
 }
 ```
 
@@ -198,9 +238,15 @@ menuentry 'Microsoft Windows 10' {
 
 ---
 
-安装`virtualbox`软件包和内核模块`virtualbox-host-modelus-arch`。
+ArchWiki：[VirtualBox](https://wiki.archlinux.org/title/VirtualBox)
+
+安装`virtualbox`软件包和内核模块`virtualbox-host-modules-arch`。
 
 如果使用其他内核，需要安装的是`virtualbox-host-dkms`。
+
+```sh
+sudo pacman -S virtualbox virtualbox-host-modules-arch
+```
 
 在`VirtualBox`所使用的内核模块中，只有`vboxdrv`是必须的，该模块必须在虚拟机运行之前加载。
 

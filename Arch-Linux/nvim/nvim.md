@@ -370,3 +370,9 @@ stdin : 标准输入
 ---
 
 `GitHub`：[vim-surround](https://github.com/tpope/vim-surround)
+
+### vim-hexokinase
+
+---
+
+`GitHub`：[vim-hexokinase](https://github.com/RRethy/vim-hexokinase)
