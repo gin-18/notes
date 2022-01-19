@@ -24,7 +24,7 @@ cd st
 
 # 修改config.mk文件
 X11INC = /usr/X11R6/include               X11INC = /usr/include/X11
-                                 ->        
+                                 ->
 X11LIB = /usr/X11R6/lib                   X11LIB = /usr/lib/X11
 ```
 
