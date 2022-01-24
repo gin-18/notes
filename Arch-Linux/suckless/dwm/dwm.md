@@ -45,9 +45,9 @@ source ~/.profile
 ## 3. 安装字体
 
 ```sh
-sudo pacman -S ttf-fira-code ttf-nerd-fonts-symbols-mono wqy-zenhei
+sudo pacman -S ttf-fira-code ttf-nerd-fonts-symbols-mono wqy-microhei
 
-yay -S ttf-symbola nerd-fonts-complete
+yay -S ttf-symbola nerd-fonts-fira-code
 ```
 
 ## 4. 安装终端模拟器
@@ -212,7 +212,7 @@ static const char *flameshot[] = { "flameshot", "gui", NULL};
 
 ---
 
-一般情况下，补丁文件都会说明是基于哪个版本制作出来的补丁
+一般情况下，补丁文件都会说明是基于哪个版本制作出来的补丁。
 
 例：
 

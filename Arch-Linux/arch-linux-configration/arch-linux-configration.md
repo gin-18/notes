@@ -2,7 +2,7 @@
 
 [TOC]
 
-## 添加`archlinuxcn`源
+## 添加archlinuxcn源
 
 清华大学开源软件镜像站：[ArchlinuxCN镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/archlinuxcn/)
 
@@ -13,7 +13,7 @@
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 ```
 
-再安装`archlinuxcn-keyring`包导入GPG key：
+再安装`archlinuxcn-keyring`包导入`GPG key`：
 
 ```
 sudo pacman -S archlinuxcn-keyring
@@ -21,36 +21,40 @@ sudo pacman -S archlinuxcn-keyring
 
 ## nvidia显卡驱动
 
-查看显卡和显卡驱动
+查看显卡和显卡驱动。
 
 ```
 lspci -k | grep -A 2 -E "(VGA|3D)"
 ```
 
-安装nvidia驱动
+安装`nvidia`驱动。
 
 ```
 sudo pacman -S nvidia
 ```
 
-## 安装git
+## git
 
 ```sh
 sudo pacman -S git
 ```
 
-添加`raw.githubusercontent.com`到`/etc/hosts`
+添加`raw.githubusercontent.com`到`/etc/hosts`。
 
 ```sh
 185.199.108.133 raw.githubusercontent.com
 ```
 
-克隆仓库
+克隆仓库。
 
 ```sh
 git clone https://github.com/GIN-18/Dotfiles.git .config
 
-git clone https://github.com/GIN-18/suckless.git
+git clone https://github.com/GIN-18/dwm.git
+
+git clone https://github.com/GIN-18/st.git
+
+git clone https://github.com/GIN-18/dmenu.git
 
 # 将.config/some目录下的配置文件复制到家目录下
 cp $HOME/.config/some/* $HOME
@@ -61,13 +65,13 @@ cp $HOME/.config/some/* $HOME
 GitHub：[zinit](https://github.com/zdharma-continuum/zinit)
 
 
-安装zsh并切换到zsh
+安装zsh并切换到zsh。
 
 ```sh
 sudo pacman -S zsh;chsh -s /bin/zsh
 ```
 
-安装zinit
+安装zinit。
 
 ```sh
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -81,25 +85,27 @@ git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 
 GitHub：[grub2-themes](https://github.com/vinceliuice/grub2-themes)
 
-克隆仓库
+克隆仓库。
 
 ```sh
 git clone https://github.com/vinceliuice/grub2-themes.git && cd grub2-themes
 ```
 
-安装
+安装。
 
 ```sh
 sudo ./install.sh -t vimix -s 4k
 ```
 
-重新生产`grub`配置文件
+重新生成`grub`配置文件。
 
 ```sh
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ### grub.cfg
+
+---
 
 ```
 menuentry "System shutdown" --class shutdown {
@@ -120,6 +126,8 @@ menuentry 'UEFI Firmware Settings' $menuentry_id_option 'uefi-firmware' --class 
 ## fcitx5 输入法
 
 ArchWiki：[fcitx5](https://wiki.archlinux.org/title/Fcitx5)
+
+安装相应的软件包。
 
 ```sh
 sudo pacman -S fcitx5-im fcitx5-chinese-addons fcitx5-nord
@@ -196,19 +204,17 @@ pair MAC_address
 connent MAC_address
 ```
 
-## 双系统grub添加Windows10引导启动项
+## 双系统grub添加Windows 10引导启动项
 
-如果grub引导界面没有Win10启动项，则需要手动添加。
+如果`grub`引导界面没有`Windows 10`启动项，则需要手动添加。
 
-查看Win10的EFI启动项在磁盘的哪个分区
+查看`Win10`的`EFI`启动项在磁盘的哪个分区
 
 ```sh
 fdisk -l
 ```
 
-![fdisk-l](./screenshot/fdisk-l.png)
-
-输出结果中`Size Type`表示分区类型，显示EFI的就是引导分区，找到Win10的引导分区的设备号
+输出结果中`Size Type`表示分区类型，显示`EFI`的就是引导分区，找到`Windows 10`的引导分区的设备号
 
 查看分区的`uuid`，使用`blkid`命令或`grub`命令均可
 
@@ -220,14 +226,14 @@ blkid /dev/nvme0n1p1
 grub-probe -t fs_uuid -d /dev/nvme0n1p1
 ```
 
-在`/boot/grub/grub.cfg`的30_osprobe文件中添加以下代码(其中`xxxx-xxxx`是分区的`uuid`)
+在`/boot/grub/grub.cfg`的`30_osprobe`文件中添加以下代码(其中\<uuid>填写`Windows 10`的引导分区的`uuid`)：
 
 ```
 menuentry 'Microsoft Windows 10' --class windows {
     insmod part_gpt
     insmod fat
     insmod chain
-    search --fs-uuid --no-floppy --set=root xxxx-xxxx
+    search --fs-uuid --no-floppy --set=root <uuid>
     chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
 }
 ```
@@ -260,9 +266,11 @@ modprobe vboxdrv
 modprobe vboxnetadp vboxnetflt vboxpci
 ```
 
-virtualbox下安装macOS
+#### virtualbox下安装macOS
 
-在启动VM之前，虚拟机目录运行以下命令
+---
+
+在启动VM之前，虚拟机目录运行以下命令：
 
 ```sh
 VBoxManage modifyvm "MyMacVM" --cpuid-set 00000001 000106e5 00100800 0098e3fd bfebfbff
@@ -284,7 +292,7 @@ VBoxManage setextradata "MyMacVM" VBoxInternal2/EfiGopMode 4
 
 ---
 
-vmware workstation 16 pro序列号
+`vmware workstation 16 pro`序列号
 
 ```
 ZF3R0-FHED2-M80TY-8QYGC-NPKYF
@@ -292,7 +300,7 @@ ZF3R0-FHED2-M80TY-8QYGC-NPKYF
 
 ## 亮度调整
 
-使用`xorg-xbacklight`来调整屏幕的亮度，`xbacklight`命令默认只对Intel核显有效。
+使用`xorg-xbacklight`来调整屏幕的亮度，`xbacklight`命令默认只对`Intel`核显有效。
 
 调整屏幕亮度就是在硬件层面调整LED灯的功率，在linux中通过acpi(高级配置与电源接口)来控制。其他核显可以安装acpi的亮度控制取代`xbacklight`的功能。
 
@@ -300,13 +308,13 @@ ZF3R0-FHED2-M80TY-8QYGC-NPKYF
 sudo pacman -S acpilight
 ```
 
-将当前用户添加到`video`组，实现免`root`控制亮度
+将当前用户添加到`video`组，实现免`root`控制亮度。
 
 ```sh
 sudo gpasswd video -a <username>
 ```
 
-`acpilight`兼容`xbacklight`，重启之后就可以通过以下命令控制亮度
+`acpilight`兼容`xbacklight`，重启之后就可以通过以下命令控制亮度：
 
 ```sh
 # 获取当前亮度
@@ -324,13 +332,13 @@ xbacklight -dec <number>
 
 ## uxplay(ios投屏工具)
 
-安装uxplay
+安装uxplay。
 
 ```sh
 yay -S uxplay-git
 ```
 
-启动服务
+启动服务。
 
 ```sh
 sudo systemctl start avahi-daemon.service
