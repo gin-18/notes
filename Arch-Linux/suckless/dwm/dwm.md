@@ -62,7 +62,10 @@ yay -S ttf-symbola nerd-fonts-complete
 
 ---
 
+`alacritty`有`GPU`加速。
+
 ```sh
+# 安装alacritty
 sudo pacman -S alacritty
 ```
 
@@ -88,7 +91,7 @@ static const char *termcmd[] = { "st", NULL};
 ```sh
 # 修改 config.mk 文件
 X11INC = /usr/X11R6/include               X11INC = /usr/include/X11
-                                 ->        
+                                 ->
 X11LIB = /usr/X11R6/lib                   X11LIB = /usr/lib/X11
 ```
 
@@ -139,11 +142,17 @@ fi
 
 ## 8. dwm 配置
 
-编译安装后，会产生`config.h`文件。
+每次编译安装都会根据`config.def.h`文件产生`config.h`文件。
 
-通过`config.h`文件配置`dwm`。
+所以可以通过`config.def.h`文件配置`dwm`。
 
-### config.h 文件源码说明
+每次修改源码都需要重新编译安装：
+
+```sh
+rm -rf config.h && sudo make clean install
+```
+
+### config.def.h 文件源码说明
 
 ---
 
@@ -203,21 +212,97 @@ static const char *flameshot[] = { "flameshot", "gui", NULL};
 
 ---
 
-将补丁文件放在`dwm`目录下。通过`patch`命令打补丁。
-
-如果打补丁失败，需要手动添加。
+一般情况下，补丁文件都会说明是基于哪个版本制作出来的补丁
 
 例：
 
-打一个`隐藏没有程序运行的标签`的补丁。
+`hide vacant tags`最新的补丁是基于`dwm-6.2`制作出来的补丁。
+
+![hide-vacant-tags](images/hide-vacant-tags.png)
+
+
+#### 使用`git`管理打补丁后的`dwm`。
+
+---
+
+在打补丁之前，可以创建一个指向该补丁版本的git分支。
 
 ```sh
-patch < dwm-hide_vacant_tags-6.2.diff
+# 创建版本指向6.2，分支命为dwm-hide_vacant_tags-6.2的git分支
+git switch -c dwm-hide_vacant_tags-6.2 6.2
 ```
 
-只有`标签1`下有程序运行，所以只显示`标签1`。
+
+将补丁文件放在`~/patches`目录下，通过`patch`命令打补丁。
+
+```sh
+# 在"dwm-hide_vacant_tags-6.2"分支上打"dwm-hide_vacant_tags-6.2.diff"补丁。
+patch < ~/patches/dwm-hide_vacant_tags-6.2.diff
+
+# git提交修改
+git commit -am "patch: dwm-hide_vacant_tags-6.2"
+```
+
+将`dwm-hide_vacant_tags-6.2`分支合并到`master`分支。
+
+分支合并如果有冲突就解决冲突。
+
+```sh
+# 切换到"master"分支
+git switch master
+
+# 合并分支
+git merge dwm-hide_vacant_tags-6.2
+```
+
+重新编译安装。
+
+```sh
+rm -rf config.h && sudo make clean install
+```
+
+安装完成后，发现只有`标签1`下有程序运行，所以只显示`标签1`，说明补丁成功了。
 
 ![dwm-hide-vacant-tags](./images/dwm-patch-hide-vacant-tags.png)
+
+### 代码托管和官方代码同步
+
+---
+
+查看远程仓库地址
+
+```sh
+git remote -v
+```
+
+![origin-to-suckless](images/origin-to-suckless.png)
+
+发现`origin`指向官方的仓库。
+
+修改：将`upstream`指向官方的仓库，`origin`指向自己的仓库。
+
+```sh
+# 将"upstream"指向官方的仓库
+git remote rename origin upstream
+
+# 添加自己的仓库地址
+git add remote origin <自己的仓库地址>
+```
+
+将配置好的`dwm`推送到自己的远程仓库。
+
+```sh
+# 推送所有的分支和tags
+git push origin --all && git push origin --tags
+```
+
+官方代码同步。
+
+```sh
+git pull upstream master
+```
+
+如果`git pull`有冲突就解决冲突。
 
 ### 推荐补丁
 
@@ -264,8 +349,8 @@ xsetroot -name "hello dwm"
 ```c
 void
 runAutostart(void) {
-  system("cd ~/scripts; ./autostart_blocking.sh")
-  system("cd ~/scripts; ./autostart.sh &")
+    system("cd ~/scripts; ./autostart_blocking.sh")
+    system("cd ~/scripts; ./autostart.sh &")
 }
 ```
 
@@ -274,7 +359,7 @@ runAutostart(void) {
 ```c
 void
 runAutostart(void) {
-  system("cd ~/dwm/scripts; ./autostart.sh &")
+    system("cd ~/dwm/scripts; ./autostart.sh &")
 }
 ```
 
@@ -284,32 +369,14 @@ runAutostart(void) {
 #!/bin/sh
 
 dwm_date () {
-  date '+%Y年%m月%d日 %a %H:%M'
+    date '+%Y年%m月%d日 %a %H:%M'
 }
 
 while true
 do
-  xsetroot -name "$(dwm_date)"
-  sleep 1
+    xsetroot -name "$(dwm_date)"
+    sleep 1
 done
 ```
 
 ![dwm-date](./images/dwm-date-script.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
