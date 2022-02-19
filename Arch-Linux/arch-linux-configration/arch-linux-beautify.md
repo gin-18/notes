@@ -1,7 +1,5 @@
 # Arch Linux 美化 (st + dwm)
 
-我的`dwm` & `st`配置：[https://github.com/GIN-509/suckless](https://github.com/GIN-509/suckless)
-
 [TOC]
 
 ## 1. 安装 st

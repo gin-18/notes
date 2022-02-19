@@ -376,3 +376,9 @@ stdin : 标准输入
 ---
 
 `GitHub`：[vim-hexokinase](https://github.com/RRethy/vim-hexokinase)
+
+### nvim-tree
+
+---
+
+`GitHub`：[nvim-tree](https://github.com/kyazdani42/nvim-tree.lua)

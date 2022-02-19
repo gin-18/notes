@@ -343,3 +343,6 @@ yay -S uxplay-git
 ```sh
 sudo systemctl start avahi-daemon.service
 ```
+## 软件包列表
+
+<++>
