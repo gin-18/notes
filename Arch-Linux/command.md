@@ -108,11 +108,10 @@ tar -jxvf <包名> -C <指定目录>
 
 复制到剪贴板
 
-```
+```sh
+cat <filename> | xclip -selection clipboard
 
 ```
-
-<++>
 
 ## import
 
