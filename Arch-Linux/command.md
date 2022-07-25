@@ -1,5 +1,7 @@
 # Linux Command
 
+[TOC]
+
 ## pacman
 
 更新软件包数据库，不更新任何软件
