@@ -12,7 +12,7 @@
 
 ---
 
-```
+```sh
 sudo pacman -S docker
 
 # 启动Docker
@@ -25,7 +25,7 @@ sudo systemctl start docker
 
 更新 `apt` 并下载相应软件。
 
-```shell
+```sh
 sudo apt update
 
 sudo apt install \
@@ -37,7 +37,7 @@ sudo apt install \
 
 添加 `Docker` 官方 `GPG key`。
 
-```shell
+```sh
 sudo mkdir -p /etc/apt/keyrings
 
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -45,7 +45,7 @@ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o 
 
 设置仓库。
 
-```shell
+```sh
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
@@ -53,7 +53,7 @@ echo \
 
 安装 `Docker` 引擎。
 
-```shell
+```sh
 sudo apt update
 
 sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
@@ -69,7 +69,7 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 通过修改 `daemon` 配置文件 `/etc/docker/daemon.json` 来使用加速器。
 
-```shell
+```sh
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -86,25 +86,25 @@ sudo systemctl restart docker
 
 创建Docker组。
 
-```shell
+```sh
 sudo groupadd docker
 ```
 
 将用户添加到Docker组。
 
-```shell
+```sh
 sudo usermod -aG docker $USER
 ```
 
 激活组更新。
 
-```shell
+```sh
 newgrp docker
 ```
 
 验证是否能以普通用户运行Docker命令。
 
-```shell
+```sh
 docker run hello-world
 ```
 
@@ -114,25 +114,25 @@ docker run hello-world
 
 拉取镜像。
 
-```shell
+```sh
 docker pull <image>:<tag>
 ```
 
 查看镜像。
 
-```shell
+```sh
 docker images
 ```
 
 删除镜像。
 
-```shell
+```sh
 docker rmi <image id>
 ```
 
 镜像导入与导出。
 
-```shell
+```sh
 # 导出
 docker save -o <path/name.image> <image id>
 
@@ -149,7 +149,7 @@ docker tag <image id> <name>:<tag>
 
 <++>
 
-## Docker网络(docker0)
+## Docker网络 - docker0
 
 ---
 
@@ -167,10 +167,95 @@ docker tag <image id> <name>:<tag>
 sudo docker run -d -p 27017:27017 -v ~/docker_volume/mongo/configdb:/data/configdb -v ~/docker_volume/mongo/db:/data/db mongo
 ```
 
+<++>
 
+## Docker 运行 Linux，利用 VNC 实现 GUI 界面
 
+---
 
+### 运行 Arch Linux
 
+---
+
+运行容器。
+
+```sh
+sudo docker run -it -d -p 5901:5901 --name arch_vnc archlinux
+```
+
+进入容器。
+
+```sh
+sudo docker exec -it arch_vnc /bin/bash
+```
+
+修改 `pacman` 国内源。
+
+```sh
+# 添加国内源
+echo \
+'Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
+Server = http://mirrors.aliyun.com/archlinux/$repo/os/$arch
+Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
+
+# 更新源
+pacman -Syy
+```
+
+安装基础包。
+
+```sh
+# 基础包
+pacman -S xorg make gcc git neovim
+
+# 字体
+pacman -S wqy-microhei ttf-fira-code
+```
+
+安装图形化界面。
+
+```sh
+# 克隆 dwm
+git clone https://git.suckless.org/dwm
+
+# 编译安装
+cd dwm && make install
+```
+
+安装配置 `vncserver`。
+
+```sh
+# 安装 vncserver
+pacman -S tigervnc
+
+# 初始化密码
+vncpasswd
+
+# 配置
+echo 'session=dwm' >> ~/.vnc/config
+```
+
+添加 `dwm` 的 `desktop entry`，在 `/usr/share/xsessions/dwm.desktop` 文件中添加以下内容：
+
+```sh
+[Desktop Entry]
+Encoding=UTF-8
+Name=Dwm
+Comment=Dynamic window manager
+Exec=dwm
+Icon=dwm
+Type=Xsession
+```
+
+启动 `vncserver`。
+
+```sh
+# ":1"会在5900端口上+1
+vncserver :1
+
+# 在容器外可以使用以下命令
+sudo docker exec -u root -d arch_vnc bash -c '/usr/sbin/vncserver :1'
+```
 
 
 
