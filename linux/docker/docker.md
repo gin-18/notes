@@ -235,6 +235,12 @@ vncpasswd
 echo 'session=dwm' >> ~/.vnc/config
 ```
 
+创建 `/usr/share/xsessions` mul。
+
+```sh
+mkdir -p /usr/share/xsessions
+```
+
 添加 `dwm` 的 `desktop entry`，在 `/usr/share/xsessions/dwm.desktop` 文件中添加以下内容：
 
 ```sh
