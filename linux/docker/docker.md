@@ -164,10 +164,8 @@ docker tag <image id> <name>:<tag>
 ---
 
 ```sh
-sudo docker run -d -p 27017:27017 -v ~/docker_volume/mongo/configdb:/data/configdb -v ~/docker_volume/mongo/db:/data/db mongo
+sudo docker run -d -p 27017:27017 --name mongodb -v ~/docker_volume/mongo/configdb:/data/configdb -v ~/docker_volume/mongo/db:/data/db -v ~/docker_volume/mongo/backup:/data/backup mongo --auth
 ```
-
-<++>
 
 ## Docker 运行 Linux，利用 VNC 实现 GUI 界面
 
