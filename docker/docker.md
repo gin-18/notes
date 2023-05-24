@@ -233,7 +233,7 @@ vncpasswd
 echo 'session=dwm' >> ~/.vnc/config
 ```
 
-创建 `/usr/share/xsessions` mul。
+创建 `/usr/share/xsessions` 目录。
 
 ```sh
 mkdir -p /usr/share/xsessions

@@ -8,7 +8,7 @@
 
 ---
 
-在终端窗口输入命令，用户与计算机的这种临时的交互，称为一次`会话`。
+在终端窗口输入命令，用户与计算机的这种临时的交互，称为一次 `会话`。
 
 窗口与其中启动的进程是连在一起的。
 
@@ -18,7 +18,7 @@
 
 ---
 
-`tmux`的快捷键都要通过前缀键`prefix`唤起。默认的前缀键`prefix`是`ctrl+b`。
+`tmux` 的快捷键都要通过前缀键 `prefix` 唤起。默认的前缀键 `prefix` 是 `ctrl+b`。
 
 ## 3. 会话管理
 
@@ -28,7 +28,7 @@
 
 ---
 
-第一个启动的，`tmux`会话窗口，编号是0。第二个窗口的编号是1。
+第一个启动的，`tmux` 会话窗口，编号是0。第二个窗口的编号是1。
 
 新建一个指定名称的会话
 
@@ -40,7 +40,7 @@ tmux new -s <session-name>
 
 ---
 
-`tmux detach`命令，就会将当前会话与窗口分离。
+`tmux detach` 命令，就会将当前会话与窗口分离。
 
 ```sh
 tmux detach
@@ -52,7 +52,7 @@ tmux detach
 
 ---
 
-`tmux ls`命令可以查看当前所有的tmux会话。
+`tmux ls` 命令可以查看当前所有的tmux会话。
 
 ```sh
 tmux ls 或者 tmux list-session
@@ -62,7 +62,7 @@ tmux ls 或者 tmux list-session
 
 ---
 
-`tmux attach`命令用于重新接入某个已经存在的会话。
+`tmux attach` 命令用于重新接入某个已经存在的会话。
 
 ```sh
 # 使用会话编号
@@ -76,7 +76,7 @@ tmux attach -t <session-name>
 
 ---
 
-`tmux kill-session`命令用于杀死某个会话。
+`tmux kill-session` 命令用于杀死某个会话。
 
 ```sh
 # 使用会话编号
@@ -90,7 +90,7 @@ tmux kill-session -t <session-name>
 
 ---
 
-`tmux switch`命令用于切换会话。
+`tmux switch` 命令用于切换会话。
 
 ```sh
 # 使用会话编号
@@ -104,7 +104,7 @@ tmux switch -t <session-name>
 
 ---
 
-`tmux rename-session`命令用于重命名会话。
+`tmux rename-session` 命令用于重命名会话。
 
 ```sh
 # 将0号会话重命名
@@ -131,7 +131,7 @@ tmux rename-session -t 0 <new-name>
 
 ---
 
-`tmux new-window`命令用来创建新窗口。
+`tmux new-window` 命令用来创建新窗口。
 
 ```sh
 tmux new-window
@@ -144,7 +144,7 @@ tmux new-window -n <window-name>
 
 ---
 
-`tmux select-window`命令用来切换窗口。
+`tmux select-window` 命令用来切换窗口。
 
 ```sh
 # 切换到指定编号的窗口
@@ -158,7 +158,7 @@ tmux select-window -t <window-name>
 
 ---
 
-`tmux rename-window`命令用于为当前窗口起名。
+`tmux rename-window` 命令用于为当前窗口起名。
 
 ```sh
 tmux rename-window <new-name>
@@ -187,7 +187,7 @@ tmux可以将窗口分成多个窗格,每个窗格运行不同的命令。
 
 ---
 
-`tmux split-window`命令用于划分窗格。
+`tmux split-window` 命令用于划分窗格。
 
 ```sh
 # 划分上下两个窗格
@@ -201,7 +201,7 @@ tmux split-window -h
 
 ---
 
-`tmux select-pane`命令用于在窗格间移动光标。
+`tmux select-pane` 命令用于在窗格间移动光标。
 
 ```sh
 # 光标移动到上窗格
@@ -221,7 +221,7 @@ tmux select-pane -R
 
 ---
 
-`tmux swap-pane`命令用于交换窗格的位置。
+`tmux swap-pane` 命令用于交换窗格的位置。
 
 ```sh
 # 当前窗格上移
@@ -268,7 +268,7 @@ tmux swap-pane -D
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 ```
 
-添加以下内容到`tmux.conf`文件的底部。
+添加以下内容到 `~/.config/tmux/tmux.conf` 文件的底部。
 
 ```sh
 # List of plugins
@@ -278,7 +278,7 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 run '~/.config/tmux/plugins/tpm/tpm'
 ```
 
-重新加载`tmux.conf`文件。
+重新加载 `~/.config/tmux/tmux.conf` 文件。
 
 ```sh
 tmux source ~/.config/tmux/tmux.conf
@@ -288,13 +288,13 @@ tmux source ~/.config/tmux/tmux.conf
 
 ---
 
-添加插件地址到`tmux.conf`文件。
+添加插件地址到 `~/.config/tmux/tmux.conf` 文件。
 
 ```sh
 set -g @plugin '<plugin addr>'
 ```
 
-按下快捷键`安装`，`卸载`，`更新`插件。
+按下快捷键 `安装`，`卸载`，`更新` 插件。
 
 | 快捷键               | 描述     |
 |----------------------|----------|
@@ -304,18 +304,33 @@ set -g @plugin '<plugin addr>'
 
 插件安装目录：`~/.config/tmux/plugins/`。
 
-### nord-tmux
+### nordtheme/tmux
 
 ---
 
-插件地址：[nord-tmux](https://github.com/arcticicestudio/nord-tmux)
+插件地址：[nordtheme/tmux](https://github.com/nordtheme/tmux)
 
-`tmux`的`nord`主题。
+`tmux` 的 `nord` 主题。
 
-添加以下内容到`tmux.conf`文件中。
+添加以下内容到 `~/.config/tmux/tmux.conf` 文件中。
 
 ```sh
 set -g @plugin 'arcticicestudio/nord-tmux'
 ```
 
-![nord-tmux](./images/nord-tmux.png)
+### catppuccin/tmux
+
+---
+
+插件地址：[catppuccin/tmux](https://github.com/catppuccin/tmux)
+
+`tmux` 的 `catppuccin` 主题。
+
+添加以下内容到 `~/.config/tmux/tmux.conf` 文件中。
+
+```sh
+set -g @plugin 'catppuccin/tmux'
+
+# 主题一共有4个：latte, frappe, macchiato, mocha
+set -g @catppuccin_flavour 'latte'
+```
