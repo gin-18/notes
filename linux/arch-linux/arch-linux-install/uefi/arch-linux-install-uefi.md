@@ -6,6 +6,24 @@
 
 ---
 
+## 禁用安全启动
+
+---
+
+`Arch Linux` 安装镜像不支持 `安全启动（Secure Boot）`。要引导安装介质，需要禁用安全启动。
+
+## 验证引导模式
+
+---
+
+要验证引导模式，可以使用下列命令行出 `efivars` 目录：
+
+```sh
+ls /sys/firmware/efi/efivars
+```
+
+如果命令结果显示了目录且没有报告错误，则系统以 `UEFI` 模式引导。 如果目录不存在，则系统可能以 `BIOS` 模式引导。
+
 ## 连接互联网
 
 ---
@@ -37,12 +55,20 @@ station <设备名> get-networks
 station <设备名> connect <网络名称>
 ```
 
+### 检查网络连接
+
+---
+
+```sh
+ping archlinux.org
+```
+
 ## 更新系统时钟
 
 ---
 
 ```sh
-timedatectl set-ntp true
+timedatectl status
 ```
 
 ## 磁盘分区
@@ -57,7 +83,17 @@ timedatectl set-ntp true
 cfdisk
 ```
 
-## 磁盘格式化
+### 分区示列
+
+---
+
+| 挂载点           | 分区类型              | 建议大小        |
+| ---------------- | ---------------       | --------------- |
+| /mnt/boot        | EFT系统分区           | 至少300Mib      |
+| [SWAP]           | Linux swap            | 大于512Mib      |
+| /mnt             | Linux x86-64根目录(/) | 剩余空间        |
+
+## 格式化分区
 
 ---
 
@@ -70,13 +106,13 @@ fdisk -l
 格式化 `boot分区`。
 
 ```sh
-mkfs.vfat <boot分区设备名>
+mkfs.fat -F 32 <boot分区设备名>
 ```
 
-格式化 `系统分区`。
+格式化 `根分区`。
 
 ```sh
-mkfs.ext4 <系统分区设备名>
+mkfs.ext4 <根分区设备名>
 ```
 
 格式化 `swap` 分区。
@@ -85,32 +121,26 @@ mkfs.ext4 <系统分区设备名>
 mkswap <swap分区设备名>
 ```
 
-激活 `swap` 分区。
-
-```sh
-swapon <swap分区设备名>
-```
-
-## 挂载
+## 挂载分区
 
 ---
 
-将 `系统分区` 挂载到 `/mnt目录`。
+将 `根分区` 挂载到 `/mnt目录`。
 
 ```sh
-mount <系统分区设备名> /mnt
-```
-
-创建 `boot分区` 的挂载点。
-
-```sh
-mkdir /mnt/boot
+mount <根分区设备名> /mnt
 ```
 
 将 `boot分区` 挂载到 `/mnt/boot目录`。
 
 ```sh
-mount <boot分区设备名> /mnt/boot
+mount --mkdir <boot分区设备名> /mnt/boot
+```
+
+激活 `swap` 分区。
+
+```sh
+swapon <swap分区设备名>
 ```
 
 ## 修改镜像列表
@@ -130,7 +160,7 @@ reflector -c China -a 6  --sort rate --save /etc/pacman.d/mirrorlist
 安装系统。
 
 ```sh
-pacstrap /mnt base linux linux-firmware
+pacstrap -K /mnt base linux linux-firmware
 ```
 
 生成 `fstab` 文件。
