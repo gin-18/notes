@@ -83,7 +83,7 @@ setInterval(function sayMyName(name) {
 `setTimeout` 和 `setInterval` 函数，都返回一个整数值，表示定时器编号。将该整数传入 `clearTimeout` 和 `clearInterval` 函数，就可以取消对应的定时器。
 
 ```javascript
-setTimeout(
+var timeoutId = setTimeout(
   function sayMyName(name) {
     console.log("my name is:", name);
   },
@@ -93,7 +93,7 @@ setTimeout(
 
 clearTimeout(timeoutId);
 
-setInterval(
+var intervalId = setInterval(
   function sayMyName(name) {
     console.log("my name is:", name);
   },
@@ -106,10 +106,137 @@ clearInterval(intervalId);
 
 上面的代码，直接使用 `clearTimeout` 和 `clearInterval` 函数清除了定时器，所以定时器不会有任何输出。
 
+## Promise 对象
+
+---
+
+`Promise` 对象代表一个异步操作，有 `3` 种状态：`pending(进行中)`、`fulfilled(已成功)` 和 `rejected(已失败)`。只有异步操作的结果可以决定当前是哪一种状态，任何操作都无法改变这个状态。
+
+`Promise` 对象的状态改变只有 `2` 种可能：
+
+1. 从 `pending` 变为 `fulfilled`。
+
+2. 从 `pending` 变为 `rejected`。
+
+只要这两种情况发生，状态就凝固了，会一直保持这个结果，这时就称为 `resolved(已定型)`。
+
+### 基本用法
+
+---
+
+`Promise` 对象是一个构造函数，用来生成实例对象。
+
+```javascript
+var promise = new Promise((resolve, reject) => {
+  if(/* 异步成功 */) {
+    resolve(value)
+  } else {
+    reject(error)
+  }
+})
+```
+
+`Promise` 构造函数接受一个函数作为参数，这个函数有 `2` 个参数分别是：`resolve` 和 `reject`。这两个参数都是函数，由 JavaScript 引擎提供。
+
+* `resolve()` 函数的作用是将 `Promise` 对象的状态从 `pending` 变为 `resolved`。在异步操作成功时调用，并将异步操作的结果作为 `resolve()` 函数的参数传递出去。
+
+* `reject()` 函数的作用是将 `Promise` 对象的状态从 `pending` 变为 `rejected`。在异步操作失败时调用，并将异步操作报出的错误作为 `reject()` 函数的参数传递出去。
+
+简单用 `Promise` 对象封装一个读取文件内容的函数。
+
+```javascript
+const fs = require("fs");
+
+function rf(filePath) {
+  let promise = new Promise((resolve, reject) => {
+    fs.readFile(filePath, (error, data) => {
+      if (!error) {
+        resolve(data);
+      } else {
+        reject(error);
+      }
+    });
+  });
+  return promise;
+}
+```
+
+### Promise.prototype.then()
+
+---
+
+`then()` 方法为 `Promise` 实例添加状态改变时的回调函数。
+
+`then()` 方法的第一个参数是 `resolved` 状态的回调函数，第二个参数是 `rejected` 状态的回调函数，这两个参数都是可选的。
+
+`then()` 方法返回一个新的 `Promise` 实例，因此可以链式调用。
+
+```javascript
+rf("/post.json")
+  .then(res => res)
+  .then(res => {
+    console.log(res);
+  });
+```
+
+### Promise.prototype.catch()
+
+---
+
+`catch()` 方法用于指定发生错误时的回调。
+
+```javascript
+rf("/post.json")
+  .then(res => res)
+  .catch(error => {
+    console.log(error);
+  });
+```
+
+`Promise` 对象的错误具有 `冒泡` 性质，会一直向后传递，直到被捕获为止。也就是说，错误总会被下一个 `catch` 语句捕获。
+
+一般来说，不要在 `then()` 方法里面定义 `rejected` 状态的回调函数，总是使用 `catch()` 方法。
+
+```javascript
+// 不好的写法
+rf("/post.json".then(
+  (res) => res,
+  (e) => {
+    console.log(e);
+  });
+
+// 更好的写法
+rf("/post.json")
+  .then((res) => res)
+  .catch((e) => {
+    console.log(e);
+  });
+```
+
+### Promise.all()
+
+---
+
+`Promise.all()` 方法用于将多个 `Promise` 实例包装成一个新的 `Promise` 实例。
+
+`Promise.all()` 方法接受一个 `数组` 作为参数。
+
+```javascript
+let p = Promise.all([p1, p2, p3]) // p1, p2, p3 都是 Promise 实例
+```
+
+上面的代码中，`p` 的状态由 `p1`、`p2` 和 `p3` 决定，分为以下 `2` 种情况：
+
+1. 只有 `p1`、`p2` 和 `p3` 的状态都变成 `fulfilled`，`p` 的状态才会变成 `fulfilled`。此时 `p1`、`p2` 和 `p3` 的返回值组成一个数组传递给 `p` 的回调函数。
+
+2. 只要 `p1`、`p2` 和 `p3` 之中有一个状态是 `rejected`，`p` 的状态就变成 `rejected`。此时第一个 `rejected` 的实例的返回值就会传递给 `p` 的回调函数。
+
 ## 参考链接
 
 ---
 
-[https://wangdoc.com/javascript/async/general](https://wangdoc.com/javascript/async/general)
+* [https://wangdoc.com/javascript/async/general](https://wangdoc.com/javascript/async/general)
 
-[https://wangdoc.com/javascript/async/timer](https://wangdoc.com/javascript/async/timer)
+* [https://wangdoc.com/javascript/async/timer](https://wangdoc.com/javascript/async/timer)
+
+* [https://wangdoc.com/es6/promise](https://wangdoc.com/es6/promise)
