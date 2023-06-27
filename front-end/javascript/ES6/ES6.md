@@ -400,6 +400,239 @@ obj // { name: "leo", [Symbol(name)]: "gin", [Symbol(gender)]: "male" }
 
 上面的代码中，添加了新的属性 `name` 并不会与 `Symbol` 类型的属性名冲突。
 
+## Set 数据结构
+
+---
+
+`Set` 类似于数组，但是成员的值都是唯一的，没有重复的值。
+
+`Set` 本身是一个构造函数，用于生成 `Set` 数据结构。
+
+```javascript
+let set = new Set([1, 2, 3, 3, 4, 5, 6, 6])
+
+[...set] // [1, 2, 3, 4, 5, 6]
+```
+
+### Set 实例属性
+
+---
+
+* `Set.prototype.constructor`：构造函数，默认是 `Set` 函数。
+
+* `Set.prototype.size`：返回 `Set` 实例的成员总数。
+
+### Set 实例的操作方法
+
+---
+
+`Set.prototype.add(value)`：添加某个值，返回 `Set` 结构本身。
+
+`Set.prototype.delete(value)`：删除某个值，返回一个布尔值，表示是否删除成功。
+
+`Set.prototype.has(value)`：返回一个布尔值，表示该值是否为 `Set` 结构的成员。
+
+`Set.prototype.clear()`：清除所有成员，没有返回值。
+
+### Set 实例的遍历方法
+
+---
+
+`Set.prototype.keys()`：返回键名的遍历器。
+
+`Set.prototype.values()`：返回键值的遍历器。
+
+`Set.prototype.entries()`：返回键值对的遍历器。
+
+`Set.prototype.forEach()`：使用回调函数遍历每个成员。
+
+### 使用 Set 结构实现去重操作
+
+---
+
+数组去重。
+
+```javascript
+let a = [1, 2, 2, 2, 3, 3, 4, 5, 5, 6]
+
+[...new Set(a)] // [1, 2, 3, 4, 5, 6]
+```
+
+字符串去重。
+
+```javascript
+let s = "stringssttring"
+
+[...new Set(s)].join("") // string
+```
+
+## async 函数和 await 命令
+
+---
+
+### async
+
+---
+
+`async` 函数返回一个 `Promise` 对象。
+
+`async` 函数内部 `return` 语句返回的值，会成为 `then()` 方法回调函数的参数。
+
+```javascript
+async function f() {
+  return "this is an async function";
+}
+
+t().then((res) => {
+  console.log(res); // this is an async function
+});
+```
+
+`async` 函数内部抛出异常，会导致返回的 `Promise` 对象变为 `rejected` 状态。抛出的错误对象会被 `catch()` 方法的回调函数接收。
+
+```javascript
+async function e() {
+  throw new Error("this is an error message");
+}
+
+e().catch((err) => {
+  console.log(err); // this is an error message
+});
+```
+
+### 返回 `Promise` 对象的状态变化
+
+---
+
+`async` 函数返回的 `Promise` 对象，必须等到内部所有 `await` 命令后面的 `Promise` 对象执行完，才会发生状态改变，除非遇到 `return` 语句或抛出错误。也就是说，只有 `async` 函数内部的异步操作执行完成，才会执行 `then()` 方法指定的回调函数。
+
+```javascript
+function t_1(t) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("this is first");
+    }, t);
+  });
+}
+
+function t_2(t) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("this is second");
+    }, t);
+  });
+}
+
+async function aw() {
+  let t1 = await t_1(1000);
+  let t2 = await t_2(2000);
+  return `${t1} + ${t2}`;
+}
+
+aw().then((res) => {
+  console.log(res);
+});
+```
+
+上面的代码中，只有 `t_1()` 函数和 `t_2()` 函数中的操作完成，才会执行 `then()` 方法里面的打印语句。
+
+### await 命令
+
+---
+
+正常情况下，`await` 命令后面是一个 `Promise` 对象，返回该对象的结果。如果不是，直接返回对应的值。
+
+```javascript
+async function t() {
+  return await "hello";
+}
+
+t().then((res) => {
+  console.log(res);
+});
+```
+
+`await` 命令后面的 `Promise` 对象的状态变为 `rejected`，则 `reject` 的参数会被 `catch()` 方法的回调函数接收。
+
+任何一个 `await` 语句后面的 `Promise` 对象变为 `rejected` 状态，那么整个 `async` 函数都会中断执行。
+
+```javascript
+async function t() {
+  await Promise.reject("error");
+  await Promise.resolve("success");
+}
+
+t()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((e) => {
+    console.log(e);
+  });
+```
+
+上面的代码中，第二个 `await` 语句不会执行，因为第一个 `await` 语句状态变成了 `rejected`。
+
+如果，需要在前一个异步操作失败，也不中断后面的异步操作。这时，可以将第一个 `await` 放在 `try...catch` 结构中，这样不管第一个异步操作是否成功，第二个 `await` 都会执行。
+
+```javascript
+async function t() {
+  try {
+    await Promise.reject("error");
+  } catch (error) { }
+  return await Promise.resolve("success");
+}
+
+t()
+  .then((res) => {
+    console.log(res);
+  })
+```
+
+### 使用注意点
+
+---
+
+1. `await` 命令后面的 `Promise` 对象运行结构可能是 `rejected`，所以最好把 `await` 命令放在 `try...catch` 中。
+
+```javascript
+async function t() {
+  try {
+    await fetch();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// 另一种写法
+async function t() {
+  await fetch().catch((error) => {
+    console.log(error);
+  });
+}
+```
+
+2. 如果多个 `await` 命令后面的异步操作不存在继发关系，最好让它们同时触发。
+
+```javascript
+async function aw() {
+  let t1 = await t_1(1000);
+  let t2 = await t_2(2000);
+}
+```
+
+上面的代码中，`t_1()` 函数和 `t_2()` 函数是两个独立的异步操作，被写成继发关系，这样会比较耗时，因为只有 `t_1()` 函数完成后，才会执行 `t_2()` 的操作。此时，可以让它们同时触发。
+
+```javascript
+let [t1, t2] = await Promise.all([t_1(), t_2()])
+```
+
+上面的代码中， `t_1()` 函数 和 `t_2()` 函数同时触发，可以缩短执行时间。
+
+
+
+
+
 
 
 

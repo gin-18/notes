@@ -148,16 +148,12 @@ var promise = new Promise((resolve, reject) => {
 const fs = require("fs");
 
 function rf(filePath) {
-  let promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     fs.readFile(filePath, (error, data) => {
-      if (!error) {
-        resolve(data);
-      } else {
-        reject(error);
-      }
+      if (error) return reject(error);
+      resolve(data);
     });
   });
-  return promise;
 }
 ```
 
