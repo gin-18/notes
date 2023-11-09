@@ -6,11 +6,33 @@
 
 ## 安装
 
-```
+`node.js` 在安装时会安装许多内置模块，使用模块需要先导入模块。
+
+### Arch Linux
+
+---
+
+```sh
 sudo pacman -S nodejs npm
 ```
 
-`node.js`在安装时会安装许多内置模块，使用模块需要先导入模块。类似与java中的导包。
+### nvm
+
+---
+
+```sh
+# 安装 nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+
+# 安装最新版本的node
+nvm install node
+
+# 安装指定版本的node
+nvm install <version>
+
+# 切换到指定版本
+nvm use <version>
+```
 
 ## http模块
 

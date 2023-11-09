@@ -629,6 +629,193 @@ let [t1, t2] = await Promise.all([t_1(), t_2()])
 
 上面的代码中， `t_1()` 函数 和 `t_2()` 函数同时触发，可以缩短执行时间。
 
+## Class
+
+---
+
+在 JavaScript 中，生成实例对象的传统方法是通过 `构造函数`。
+
+```javascript
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+Person.prototype.say = function() {
+  console.log(this.name);
+};
+```
+
+ES6 提供 `class` 关键字用于定义类。
+
+上面的 `构造函数` 可以用 ES6 的 `class` 改写成：
+
+```javascript
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  say() {
+    console.log(this.name);
+  }
+}
+```
+
+上面的代码中，实例的属性写在 `constructor()` 方法中，`constructor()` 方法默认返回实例对象(即 `this`)。实例的方法就直接写在 `class` 中。
+
+### 静态属性和静态方法
+
+---
+
+`静态属性` 和 `静态方法` 都可以直接写在 `class` 中，前面需要使用 `static` 关键字修饰。
+
+```javascript
+class Person {
+  static st = 88;
+
+  static f() {
+    return "this is a static function";
+  }
+
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  say() {
+    console.log(this.name);
+  }
+}
+
+console.log(Person.st); // 88
+console.log(Person.f()); // "this is a static function"
+```
+
+### Class 的继承
+
+---
+
+`class` 可以通过 `extends` 关键字实现继承，让子类继承父类的属性和方法。
+
+```javascript
+class Person {
+  ...
+}
+
+class Student extends Person {
+  constructor(name, age, scores) {
+    super(name, age);
+    this.scores = scores;
+  }
+
+  say() {
+    super.say(); // 调用父类的 say() 方法
+    console.log("my scores is：", this.scores);
+  }
+}
+```
+
+上面的代码中，在 `constructor()` 方法中和 `say()` 方法中都出现了 `super` 关键字。这里的 `super` 在这里表示父类的构造函数，用来新建一个父类的实例对象。
+
+ES6 规定，子类必须在 `constructor()` 方法中调用 `super()`，否则就会报错。这是因为子类自己的 `this` 对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，再添加子类自己的实例属性和方法。如果不调用 `super()` 方法，子类就得不到自己的 `this` 对象。
+
+```javascript
+class Person {
+  ...
+}
+
+class Student extends Person {
+  constructor(name, age, scores) {
+    this.scores = scores;
+  }
+
+  say() {
+    super.say();
+    console.log("my scores is：", this.scores);
+  }
+}
+
+let s = new Student("gin", 18, 100); // 报错
+```
+
+## Module 的语法
+
+---
+
+### export 命令
+
+---
+
+`export` 命令用于规定模块的对外接口。
+
+一个模块就是一个独立的文件，该文件内部所有的变量，外部无法获取。如果外部需要访问模块内部的变量，就必须使用 `export` 命令导出变量。
+
+```javascript
+// 写法一
+export let a = 1;
+export function f() {
+  console.log("fff");
+}
+
+// 写法二
+let b = 2;
+function fn() {
+  console.log("fnfnfn");
+}
+
+export { b, fn };
+
+// 写法三
+let c = 3;
+function func() {
+  console.log("func");
+}
+
+export { c as cc, func };
+```
+
+### import 命令
+
+---
+
+使用 `export` 命令定义了模块的对外接口以后，其他 JavaScript 文件就可以通过 `import` 命令加载这个模块。
+
+`import` 命令具有提升效果，会提升到整个模块的头部，首先执行。
+
+```javascript
+// 写法一
+f() // 因为 import 命令的提升，所以不报错
+
+import { a, f } = "my_module"
+
+// 写法二
+import { a as aa } = "my_module" // 使用 as 命令重命名变量
+```
+
+###  export default 命令
+
+---
+
+如果需要在使用 `import` 命令导入模块时自定义变量名，这时，就可以使用 `export default` 命令导出变量。
+
+使用 `export default` 命令导出的变量，在使用 `import` 命令导入时不需要使用 `{}`。
+
+```javascript
+// 导出模块
+function f() {
+  ...
+}
+
+export default f
+
+// 导入模块
+import t from "my_module"
+```
+
+上面的代码中，导入模块时使用的变量名可以不和导出时的变量名相同，可以自定义变量名。
+
 
 
 
