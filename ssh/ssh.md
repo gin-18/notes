@@ -41,3 +41,26 @@ PasswordAuthentication no
 UsePAM no
 ChallengeResponseAuthentication no
 ```
+
+## 连接 github 超时
+
+---
+
+如果执行以下命令出现以下结果：
+
+```sh
+ssh -T git@github.com
+
+# ssh: connect to host github.com port 22: Connection timed out
+```
+
+需要在本地的 `~/.ssh/config` 文件中添加以下内容：
+
+```sh
+Host github.com
+HostName ssh.github.com
+User git
+Port 443
+PreferredAuthentications publickey
+IdentifyFile ~/.ssh/id_rsa
+```
