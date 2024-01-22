@@ -4,7 +4,7 @@
 
 [TOC]
 
-## Webpack + Tailwind CSS + material-design-icon
+## Webpack + Tailwind CSS(样式框架) + iconify(图标框架)
 
 ---
 
@@ -14,16 +14,14 @@
 
 * [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)
 
-* [material-design-icon](https://github.com/google/material-design-icons)
+* [iconify](https://github.com/iconify/iconify)
 
 ### 安装依赖
 
 ---
 
 ```sh
-npm i -D webpack webpack-cli webpack-dev-server @babel/core @babel/preser-env babel-loader html-webpack-plugin mini-css-extract-plugin css-loader tailwindcss autoprefixer postcss postcss-loader
-
-npm install material-icons@latest
+npm i -D webpack webpack-cli webpack-dev-server @babel/core @babel/preser-env babel-loader html-webpack-plugin mini-css-extract-plugin css-loader tailwindcss autoprefixer postcss postcss-loader @iconify/tailwind @iconify/json
 ```
 
 ### Postcss 配置
@@ -48,13 +46,18 @@ module.exports = {
 创建 `tailwindcss.config.js` 并写入下面内容。
 
 ```js
+const { addDynamicIconSelectors } = require('@iconify/tailwind');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    // Iconify plugin
+    addDynamicIconSelectors(),
+  ],
 }
 ```
 
@@ -185,8 +188,17 @@ module.exports = {
 在需要使用样式的页面的脚本文件中添加以下内容：
 
 ```js
-import 'material-icons/iconfont/material-icons.css';
 import 'path/to/main.css';
+```
+
+### 使用iconify
+
+---
+
+使用以下格式使用图标：
+
+```html
+<span class="icon-[{prefix}--{name}]"></span>
 ```
 
 ### package.json 配置
