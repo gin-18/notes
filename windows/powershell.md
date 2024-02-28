@@ -1,12 +1,18 @@
-# PowerShell 命令
+# PowerShell
 
----
+----------
 
 [TOC]
 
+## 配置文件
+
+----------
+
+Windows下的配置文件：`$PROFILE`。
+
 ## Get-ChildItem
 
----
+----------
 
 `Get-ChildItem` 命令可以在一个或多个位置获取项目和子项目。
 
@@ -14,13 +20,13 @@
 
 ## Get-Location
 
----
+----------
 
 `Get-Location` 用于获取有关当前工作目录或位置堆栈的信息，类似于 `pwd`。
 
 ## Set-Location
 
----
+----------
 
 `Set-Location` 将当前工作位置设为指定位置。
 
@@ -28,6 +34,6 @@
 
 ## New-Item
 
----
+----------
 
 `New-Item` 用于在文件系统中创建文件和目录。
