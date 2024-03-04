@@ -37,3 +37,15 @@ Windows下的配置文件：`$PROFILE`。
 ----------
 
 `New-Item` 用于在文件系统中创建文件和目录。
+
+创建符号链接到文件：
+
+```powershell
+New-Item -ItemType SymbolicLink -Path "link.txt" -Target "target.txt"
+```
+
+创建符号链接到目录：
+
+```powershell
+New-Item -ItemType SymbolicLink -Path "link_dir" -Target "target_dir" -Force
+```
