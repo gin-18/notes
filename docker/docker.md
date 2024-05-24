@@ -1,16 +1,10 @@
 # Docker
 
----
-
 [TOC]
 
 ## 安装 Docker
 
----
-
 ### Arch Linux
-
----
 
 ```sh
 sudo pacman -S docker
@@ -20,8 +14,6 @@ sudo systemctl start docker
 ```
 
 ### Debian
-
----
 
 更新 `apt` 并下载相应软件。
 
@@ -61,11 +53,7 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 ## 镜像加速
 
----
-
 ### 阿里云镜像加速
-
----
 
 通过修改 `daemon` 配置文件 `/etc/docker/daemon.json` 来使用加速器。
 
@@ -81,8 +69,6 @@ sudo systemctl restart docker
 ```
 
 ## 以普通用户方式管理Docker
-
----
 
 创建Docker组。
 
@@ -109,8 +95,6 @@ docker run hello-world
 ```
 
 ## 镜像
-
----
 
 拉取镜像。
 
@@ -145,35 +129,37 @@ docker tag <image id> <name>:<tag>
 
 ## 容器
 
----
-
 <++>
 
 ## Docker网络 - docker0
-
----
 
 <++>
 
 ## 部署应用
 
----
-
 ### mongodb
 
----
+```sh
+docker run -d -p 27017:27017 --name my-mongodb \
+-v ~/docker_volume/mongo/configdb:/data/configdb \
+-v ~/docker_volume/mongo/db:/data/db \
+-v ~/docker_volume/mongo/backup:/data/backup \
+mongo --auth
+```
+
+### nginx
 
 ```sh
-sudo docker run -d -p 27017:27017 --name mongodb -v ~/docker_volume/mongo/configdb:/data/configdb -v ~/docker_volume/mongo/db:/data/db -v ~/docker_volume/mongo/backup:/data/backup mongo --auth
+docker run -d -p 80:80 -p 443:443 --name my-nginx \
+-v ~/docker_volume/nginx/html:/usr/share/nginx/html \
+-v ~/docker_volume/nginx/conf.d:/etc/nginx/conf.d \
+-v ~/docker_volume/nginx/nginx.conf:/etc/nginx/nginx.conf \
+nginx
 ```
 
 ## Docker 运行 Linux，利用 VNC 实现 GUI 界面
 
----
-
 ### 运行 Arch Linux
-
----
 
 运行容器。
 
