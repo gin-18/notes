@@ -1,12 +1,12 @@
 # 俄罗斯方块
 
-## 俄罗斯方块基准
+## 俄罗斯方块基准(tetris guideline)
 
-文档：[俄罗斯方块基准](https://tetris.huijiwiki.com/wiki/%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97%E5%87%86%E5%88%99)
+文档：[俄罗斯方块基准](https://tetris.wiki/Tetris_Guideline)
 
 ### 必要规则
 
-#### 场地
+#### 场地(playfield)
 
 必须10x20，条件允许可以显示21,22行的隐形缓冲区。
 
@@ -50,9 +50,11 @@
 
 #### 术语表
 
-用户手册中必须使用 `tetriminos`。
+用户手册中必须使用 `tetriminos` 或 `tetrominos` 。
 
 #### 速度表
+
+文档：[马拉松](https://tetris.wiki/Marathon)
 
 马拉松的速度曲线基于 Tetris Worlds 的马拉松模式。
 
@@ -68,7 +70,27 @@ time = (0.8 - (level - 1) * 0.007)^(level-1)
 
 #### 得分
 
-<++>
+文档：[Scoring](https://tetris.wiki/Scoring#Recent_guideline_compatible_games)
+
+使用 tetris.com 的得分系统。
+
+| Action                             | Points                                                 |
+|------------------------------------|--------------------------------------------------------|
+| Single                             | 100 x level                                            |
+| Double                             | 300 x level                                            |
+| Triple                             | 500 x level                                            |
+| Tetris                             | 800 x level                                            |
+| Mini T-Spin no line(s)             | 100 x level                                            |
+| T-Spin no line(s)                  | 400 x level                                            |
+| Mini T-Spin Single                 | 200 x level                                            |
+| T-Spin Single                      | 800 x level                                            |
+| Mini T-Spin Double (if present)    | 400 x level                                            |
+| T-Spin Double                      | 1200 x level                                           |
+| T-Spin Triple                      | 1500 x level                                           |
+| Back-to-Back difficult line clears | Action score x 1.5 (excluding soft drop and hard drop) |
+| Combo                              | 50 x combo count x level                               |
+| Soft drop                          | 1 per cell                                             |
+| Hard drop                          | 2 per cell                                             |
 
 #### T-Spin 判断
 
@@ -84,7 +106,7 @@ time = (0.8 - (level - 1) * 0.007)^(level-1)
 
 * 或是方块被推出20格高的缓冲区
 
-## 基本模式
+## 游戏模式
 
 三大基础模式：马拉松、竞速 和 限时打分
 
