@@ -114,7 +114,7 @@ ffmpeg -ss <start time> -i input -vframes 1 -q:v <1-5> output.png
 ffmpeg -ss <start time> -i input.mp4 -t <time num> -c copy output.mp4
 ```
 
-## convert
+## magick
 
 ---
 
