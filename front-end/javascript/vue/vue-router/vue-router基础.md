@@ -1,7 +1,0 @@
-# vue router
-
----
-
-[TOC]
-
-Next

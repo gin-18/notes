@@ -332,15 +332,3 @@ chmod a+x gh-md-toc
 
 ./gh-md-toc <file>
 ```
-
-
-
-
-
-
-
-
-
-
-
-

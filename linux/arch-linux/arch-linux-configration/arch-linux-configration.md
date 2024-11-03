@@ -1,12 +1,6 @@
 # Arch Linux 配置
 
----
-
-[TOC]
-
 ## 添加 `archlinuxcn` 源
-
----
 
 清华大学开源软件镜像站：[ArchlinuxCN镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/archlinuxcn/)
 
@@ -25,8 +19,6 @@ sudo pacman -S archlinuxcn-keyring
 
 ## 显卡驱动
 
----
-
 查看显卡和显卡驱动。
 
 ```sh
@@ -40,8 +32,6 @@ sudo pacman -S nvidia
 ```
 
 ## git
-
----
 
 安装git。
 
@@ -102,8 +92,6 @@ git config --global user.email <email@example.com>
 
 ## zsh & zinit
 
----
-
 GitHub：[zinit](https://github.com/zdharma-continuum/zinit)
 
 安装 `zsh` 并切换到 `zsh`。
@@ -123,8 +111,6 @@ git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 ```
 
 ## fcitx5 输入法
-
----
 
 ArchWiki：[fcitx5](https://wiki.archlinux.org/title/Fcitx5)
 
@@ -149,8 +135,6 @@ SDL_IM_MODULE DEFAULT=fcitx
 ```
 
 ## 声音和蓝牙
-
----
 
 安装相应的软件包，其中：
 
@@ -209,8 +193,6 @@ connent MAC_address
 
 ## 双系统grub添加Windows 10引导启动项
 
----
-
 如果 `grub` 引导界面没有 `Windows 10` 启动项，则需要手动添加。
 
 查看 `Win10` 的 `EFI` 启动项在磁盘的哪个分区。
@@ -245,11 +227,7 @@ menuentry 'Microsoft Windows 10' --class windows {
 
 ## 虚拟机
 
----
-
 ### virtualbox
-
----
 
 ArchWiki：[VirtualBox](https://wiki.archlinux.org/title/VirtualBox)
 
@@ -275,8 +253,6 @@ modprobe vboxnetadp vboxnetflt vboxpci
 
 #### virtualbox下安装macOS
 
----
-
 在启动VM之前，虚拟机目录运行以下命令：
 
 ```sh
@@ -297,8 +273,6 @@ VBoxManage setextradata "MyMacVM" VBoxInternal2/EfiGopMode 4
 
 ### VMwarw Workstation
 
----
-
 `vmware workstation 16 pro` 序列号
 
 ```
@@ -306,8 +280,6 @@ ZF3R0-FHED2-M80TY-8QYGC-NPKYF
 ```
 
 ## 亮度调整
-
----
 
 使用`xorg-xbacklight`来调整屏幕的亮度，`xbacklight`命令默认只对`Intel`核显有效。
 
@@ -341,8 +313,6 @@ xbacklight -dec <number>
 
 ## grub2-themes
 
----
-
 GitHub：[grub2-themes](https://github.com/vinceliuice/grub2-themes)
 
 克隆仓库。
@@ -365,8 +335,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ### grub.cfg
 
----
-
 ```
 menuentry "System shutdown" --class shutdown {
     echo "System shutting down..."
@@ -385,8 +353,6 @@ menuentry 'UEFI Firmware Settings' $menuentry_id_option 'uefi-firmware' --class 
 
 ## uxplay(ios投屏工具)
 
----
-
 安装uxplay。
 
 ```sh
@@ -401,26 +367,4 @@ sudo systemctl start avahi-daemon.service
 
 ## 美化
 
----
-
 [Arch Linux 美化](./arch-linux-beautify.md)
-
-## 软件包列表
-
----
-
-<++>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

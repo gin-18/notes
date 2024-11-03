@@ -2,8 +2,6 @@
 
 suckless官网：[suckless.org](https://suckless.org/)
 
-[TOC]
-
 ## 1. 安装 xorg + xorg-xinit + git + base-devel
 
 ```sh
@@ -54,13 +52,9 @@ yay -S ttf-symbola nerd-fonts-fira-code
 
 ### st
 
----
-
 文章地址：[Arch Linux 下安装 st (终端模拟器)](https://blog.csdn.net/weixin_44335269/article/details/117848592?spm=1001.2014.3001.5501)
 
 ### alacritty
-
----
 
 `alacritty`有`GPU`加速。
 
@@ -154,11 +148,7 @@ rm -rf config.h && sudo make clean install
 
 ### config.def.h 文件源码说明
 
----
-
 #### 外观配置
-
----
 
 修改以下代码以配置`dwm`的`字体`，`颜色`等。
 
@@ -174,8 +164,6 @@ rm -rf config.h && sudo make clean install
 
 #### 标签栏的显示 + 软件的窗口规则
 
----
-
 修改以下代码以配置`dwm`标签栏的显示效果和软件的窗口规则。
 
 窗口规则：`软件打开的标签`，`窗口是否浮动`等。
@@ -183,8 +171,6 @@ rm -rf config.h && sudo make clean install
 ![dwm-tagging-win-rule](images/dwm-tagging-win-rule.png)
 
 #### 添加命令 + 定义快捷键
-
----
 
 修改以下代码以配置`dwm`的程序命令和快捷键。
 
@@ -210,8 +196,6 @@ static const char *flameshot[] = { "flameshot", "gui", NULL};
 
 ### 打补丁
 
----
-
 一般情况下，补丁文件都会说明是基于哪个版本制作出来的补丁。
 
 例：
@@ -222,8 +206,6 @@ static const char *flameshot[] = { "flameshot", "gui", NULL};
 
 
 #### 使用`git`管理打补丁后的`dwm`。
-
----
 
 在打补丁之前，可以创建一个指向该补丁版本的git分支。
 
@@ -267,8 +249,6 @@ rm -rf config.h && sudo make clean install
 
 ### 代码托管和官方代码同步
 
----
-
 查看远程仓库地址
 
 ```sh
@@ -305,8 +285,6 @@ git pull upstream master
 如果`git pull`有冲突就解决冲突。
 
 ### 推荐补丁
-
----
 
 ```
 透明补丁：alphasystray.diff

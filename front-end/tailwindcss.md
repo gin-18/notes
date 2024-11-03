@@ -1,12 +1,6 @@
 # Tailwind CSS
 
-----------
-
-[TOC]
-
 ## 插件
-
-----------
 
 ### tailwindcss - catppuccin
 

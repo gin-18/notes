@@ -1,20 +1,10 @@
 # 安装 Arch Linux - UEFI
 
----
-
-[TOC]
-
----
-
 ## 禁用安全启动
-
----
 
 `Arch Linux` 安装镜像不支持 `安全启动（Secure Boot）`。要引导安装介质，需要禁用安全启动。
 
 ## 验证引导模式
-
----
 
 要验证引导模式，可以使用下列命令行出 `efivars` 目录：
 
@@ -26,15 +16,11 @@ ls /sys/firmware/efi/efivars
 
 ## 连接互联网
 
----
-
 安装 `Arch Linux` 必须连通网络。
 
 可以插入 `网线` 或使用 `wifi`。
 
 ### 连接 wifi
-
----
 
 使用 `iwd` 连接 `wifi`。
 
@@ -57,23 +43,17 @@ station <设备名> connect <网络名称>
 
 ### 检查网络连接
 
----
-
 ```sh
 ping archlinux.org
 ```
 
 ## 更新系统时钟
 
----
-
 ```sh
 timedatectl status
 ```
 
 ## 磁盘分区
-
----
 
 可以使用 `fdisk` 命令进行磁盘分区，也可以使用 `cfdisk` 命令进行磁盘分区。
 
@@ -85,8 +65,6 @@ cfdisk
 
 ### 分区示列
 
----
-
 | 挂载点           | 分区类型              | 建议大小        |
 | ---------------- | ---------------       | --------------- |
 | /mnt/boot        | EFT系统分区           | 至少300Mib      |
@@ -94,8 +72,6 @@ cfdisk
 | /mnt             | Linux x86-64根目录(/) | 剩余空间        |
 
 ## 格式化分区
-
----
 
 查看分区设备名。
 
@@ -123,8 +99,6 @@ mkswap <swap分区设备名>
 
 ## 挂载分区
 
----
-
 将 `根分区` 挂载到 `/mnt目录`。
 
 ```sh
@@ -145,8 +119,6 @@ swapon <swap分区设备名>
 
 ## 修改镜像列表
 
----
-
 使用 `reflector` 来获取速度最快的6个镜像，并将地址保存到 `/etc/pacman.d/mirrorlist` 文件中。
 
 ```sh
@@ -154,8 +126,6 @@ reflector -c China -a 6  --sort rate --save /etc/pacman.d/mirrorlist
 ```
 
 ## 安装系统
-
----
 
 安装系统。
 
@@ -171,19 +141,13 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 ## 进入系统
 
----
-
 ```sh
 arch-chroot /mnt
 ```
 
 ## 进入系统后的设置
 
----
-
 ### 修改时区
-
----
 
 ```sh
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
@@ -191,15 +155,11 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 ### 同步系统时间
 
----
-
 ```sh
 hwclock --systohc
 ```
 
 ### 本地化设置
-
----
 
 进入系统后没有编辑器，下载需要的编辑器。
 
@@ -231,8 +191,6 @@ LANG=en_US.UTF-8
 
 ### 网络设置
 
----
-
 创建 `/etc/hostname` 文件，在文件中添加自己的 `主机名`。
 
 ```sh
@@ -255,15 +213,11 @@ arch-test
 
 ### 给root用户添加密码
 
----
-
 ```sh
 passwd
 ```
 
 ### 安装dhcpcd和iwd
-
----
 
 `dhcpcd` 用于新系统动态分配 `ip地址`。
 
@@ -274,8 +228,6 @@ pacman -S dhcpcd iwd
 ```
 
 ## 安装grub引导
-
----
 
 安装相应软件包。
 
@@ -313,8 +265,6 @@ pacman -S os-prober
 
 ## 退出系统，取消挂载并重启系统
 
----
-
 ```sh
 # 退出系统
 exit
@@ -327,8 +277,6 @@ reboot
 ```
 
 ## 重启进入系统后的设置
-
----
 
 启动 `dhcpcd`。
 

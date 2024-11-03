@@ -1,14 +1,8 @@
 # Zsh
 
----
-
 Zsh官方地址：[Zsh](https://www.zsh.org/)
 
-[TOC]
-
 ## Arch Linux 安装 zsh
-
----
 
 ```sh
 sudo pacman -S zsh
@@ -16,15 +10,11 @@ sudo pacman -S zsh
 
 ## 切换到 zsh
 
----
-
 ```sh
 chsh -s /bin/zsh
 ```
 
 ## 统一管理 zsh 配置
-
----
 
 `zsh` 默认配置文件是 `~/.zshrc`。
 
@@ -48,11 +38,7 @@ echo "source ~/dotfiles/zsh/zshrc" > ~/dotfiles/zsh/zshrc
 
 ## 插件
 
----
-
 ### 插件管理器 - zinit
-
----
 
 插件管理器地址：[zdharma-continuum/zinit](https://github.com/zdharma-continuum/zinit)
 
@@ -61,8 +47,6 @@ echo "source ~/dotfiles/zsh/zshrc" > ~/dotfiles/zsh/zshrc
 <++>
 
 ### 推荐插件
-
----
 
 ```
 zinit light zsh-users/zsh-autosuggestions

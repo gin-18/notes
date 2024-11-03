@@ -1,10 +1,6 @@
 # ssh
 
----
-
 ## ssh 免密登录
-
----
 
 生成密钥：
 
@@ -43,8 +39,6 @@ ChallengeResponseAuthentication no
 ```
 
 ## 连接 github 超时
-
----
 
 如果执行以下命令出现以下结果：
 

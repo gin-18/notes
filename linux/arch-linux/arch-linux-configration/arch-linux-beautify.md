@@ -1,12 +1,6 @@
 # Arch Linux 美化 (st + dwm)
 
----
-
-[TOC]
-
 ## 1. 安装 st
-
----
 
 文章地址：[Arch Linux 下安装 st (终端模拟器)](https://blog.csdn.net/weixin_44335269/article/details/117848592?spm=1001.2014.3001.5501)
 
@@ -14,18 +8,13 @@
 
 文章地址：[Arch Linux 下安装 dwm (平铺式窗口管理器)](https://blog.csdn.net/weixin_44335269/article/details/117886927?spm=1001.2014.3001.5501)
 
-
 ## 3. 美化
-
----
 
 `dwm` 默认样式。
 
 ![dwm-default](./images/dwm-default.png)
 
 ### 壁纸 (feh)
-
----
 
 使用 `feh` 可以为系统添加壁纸。
 
@@ -38,8 +27,6 @@ feh --bg-fill --no-fehbg -z ~/Pictures/*
 ```
 
 ### 合成管理器 (picom)
-
----
 
 使用 `picom` 可以为窗口添加 `透明`，`淡入淡出` 等效果。
 
@@ -55,8 +42,6 @@ picom -b
 
 ### 主题和图标 (gtk & qt)
 
----
-
 下载 `主题` 和 `图标`。
 
 ```sh
@@ -69,8 +54,6 @@ sudo pacman -S papirus-icon-theme
 
 #### 设置 gtk 主题和图标
 
----
-
 通过 `lxappearance` 可以设置 `gtk` 程序的主题和图标。
 
 ```sh
@@ -78,8 +61,6 @@ sudo pacman -S lxappearance
 ```
 
 #### 设置 qt 主题和图标
-
----
 
 通过 `qt5ct` 可以设置 `qt` 程序的主题和图标。
 
@@ -100,8 +81,6 @@ yay -S qt5-styleplugins
 ```
 
 ### 美化后效果
-
----
 
 ![dwm-beautify](./images/dwm-beautify.png)
 

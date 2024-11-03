@@ -1,4 +1,4 @@
-# zsh & 插件管理器 (zinit) 
+# zsh & 插件管理器 (zinit)
 
 ## zsh
 
@@ -36,19 +36,3 @@ git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
 # 在 ～/.config/zsh/zshrc 文件中 source ~/.zinit/bin/zinit.zsh
 source ~/.zinit/bin/zinit.zsh
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

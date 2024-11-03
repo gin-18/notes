@@ -1,12 +1,6 @@
 # Linux Command
 
----
-
-[TOC]
-
 ## the_silver_searcher
-
----
 
 ag会默认忽略.gitignore中的文件。
 
@@ -14,13 +8,9 @@ ag会默认忽略.gitignore中的文件。
 
 ## tar
 
----
-
 tar打包，gzip和bzip2压缩。
 
 ### 打包压缩
-
----
 
 gzip方式
 
@@ -36,8 +26,6 @@ tar -jcvf <包名(.tar.bz2)> <压缩的文件或目录>
 
 ### 解压缩
 
----
-
 gzip方式
 
 ```
@@ -52,15 +40,11 @@ tar -jxvf <包名> -C <指定目录>
 
 ## rar
 
----
-
 压缩：a
 
 解压缩：x
 
 ## xclip
-
----
 
 复制到剪贴板
 
@@ -70,8 +54,6 @@ cat <filename> | xclip -selection clipboard
 ```
 
 ## import
-
----
 
 抓取选区
 
@@ -99,8 +81,6 @@ import -window root a.png
 
 ## ffmpeg
 
----
-
 截图
 
 ```
@@ -115,8 +95,6 @@ ffmpeg -ss <start time> -i input.mp4 -t <time num> -c copy output.mp4
 ```
 
 ## magick
-
----
 
 <++>
 

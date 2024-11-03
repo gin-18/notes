@@ -2,8 +2,6 @@
 
 suckless官网：[suckless.org](https://suckless.org/)
 
-[TOC]
-
 ## 1. 安装 xorg + base-devel + git
 
 ```sh
@@ -57,8 +55,6 @@ rm -rf config.h && sudo make clean install
 
 ### 打补丁
 
----
-
 一般情况下，补丁文件都会说明是基于哪个版本制作出来的补丁。
 
 例：
@@ -68,8 +64,6 @@ rm -rf config.h && sudo make clean install
 ![st-anysize-0.8.4](images/st-anysize-0.8.4.png)
 
 #### 使用`git`管理打补丁后的`st`。
-
----
 
 在打补丁之前，可以创建一个指向该补丁版本的git分支。
 
@@ -117,8 +111,6 @@ rm -rf config.h && sudo make clean install
 
 ### 代码托管和官方代码同步
 
----
-
 查看远程仓库地址
 
 ```sh
@@ -155,8 +147,6 @@ git pull upstream master
 如果`git pull`有冲突就解决冲突。
 
 ### 补丁推荐
-
----
 
 ```
 终端透明：st-alpha-0.8.2.diff

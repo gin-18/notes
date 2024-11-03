@@ -1,12 +1,6 @@
 # tmux终端复用 (使用+插件)
 
----
-
-[TOC]
-
 ## 1. 会话与窗口
-
----
 
 在终端窗口输入命令，用户与计算机的这种临时的交互，称为一次 `会话`。
 
@@ -16,17 +10,11 @@
 
 ## 2. 前缀键 (prefix)
 
----
-
 `tmux` 的快捷键都要通过前缀键 `prefix` 唤起。默认的前缀键 `prefix` 是 `ctrl+b`。
 
 ## 3. 会话管理
 
----
-
 ### 新建会话
-
----
 
 第一个启动的，`tmux` 会话窗口，编号是0。第二个窗口的编号是1。
 
@@ -38,8 +26,6 @@ tmux new -s <session-name>
 
 ### 分离会话
 
----
-
 `tmux detach` 命令，就会将当前会话与窗口分离。
 
 ```sh
@@ -50,8 +36,6 @@ tmux detach
 
 ### 列出会话
 
----
-
 `tmux ls` 命令可以查看当前所有的tmux会话。
 
 ```sh
@@ -59,8 +43,6 @@ tmux ls 或者 tmux list-session
 ```
 
 ### 接入会话
-
----
 
 `tmux attach` 命令用于重新接入某个已经存在的会话。
 
@@ -74,8 +56,6 @@ tmux attach -t <session-name>
 
 ### 杀死会话
 
----
-
 `tmux kill-session` 命令用于杀死某个会话。
 
 ```sh
@@ -87,8 +67,6 @@ tmux kill-session -t <session-name>
 ```
 
 ### 切换会话
-
----
 
 `tmux switch` 命令用于切换会话。
 
@@ -102,8 +80,6 @@ tmux switch -t <session-name>
 
 ### 重命名会话
 
----
-
 `tmux rename-session` 命令用于重命名会话。
 
 ```sh
@@ -111,10 +87,7 @@ tmux switch -t <session-name>
 tmux rename-session -t 0 <new-name>
 ```
 
-
 ### 会话快捷键
-
----
 
 | 快捷键       | 描述           |
 |--------------|----------------|
@@ -125,11 +98,7 @@ tmux rename-session -t 0 <new-name>
 
 ## 4. 窗口管理
 
----
-
 ### 新建窗口
-
----
 
 `tmux new-window` 命令用来创建新窗口。
 
@@ -141,8 +110,6 @@ tmux new-window -n <window-name>
 ```
 
 ### 切换窗口
-
----
 
 `tmux select-window` 命令用来切换窗口。
 
@@ -156,8 +123,6 @@ tmux select-window -t <window-name>
 
 ### 重命名窗口
 
----
-
 `tmux rename-window` 命令用于为当前窗口起名。
 
 ```sh
@@ -165,8 +130,6 @@ tmux rename-window <new-name>
 ```
 
 ### 窗口快捷键
-
----
 
 | 快捷键              | 描述                                     |
 |---------------------|------------------------------------------|
@@ -179,13 +142,9 @@ tmux rename-window <new-name>
 
 ## 5. 窗格操作
 
----
-
 tmux可以将窗口分成多个窗格,每个窗格运行不同的命令。
 
 ### 划分窗格
-
----
 
 `tmux split-window` 命令用于划分窗格。
 
@@ -198,8 +157,6 @@ tmux split-window -h
 ```
 
 ### 移动光标
-
----
 
 `tmux select-pane` 命令用于在窗格间移动光标。
 
@@ -219,8 +176,6 @@ tmux select-pane -R
 
 ### 交换窗格位置
 
----
-
 `tmux swap-pane` 命令用于交换窗格的位置。
 
 ```sh
@@ -232,8 +187,6 @@ tmux swap-pane -D
 ```
 
 ### 窗格快捷键
-
----
 
 | 快捷键       | 描述                                         |
 |--------------|----------------------------------------------|
@@ -250,17 +203,11 @@ tmux swap-pane -D
 
 ## 6. 插件
 
----
-
 ### 插件管理器
-
----
 
 插件管理器地址：[tpm](https://github.com/tmux-plugins/tpm)
 
 #### 安装
-
----
 
 克隆仓库。
 
@@ -286,8 +233,6 @@ tmux source ~/.config/tmux/tmux.conf
 
 #### 安装，卸载，更新插件
 
----
-
 添加插件地址到 `~/.config/tmux/tmux.conf` 文件。
 
 ```sh
@@ -306,8 +251,6 @@ set -g @plugin '<plugin addr>'
 
 ### nordtheme/tmux
 
----
-
 插件地址：[nordtheme/tmux](https://github.com/nordtheme/tmux)
 
 `tmux` 的 `nord` 主题。
@@ -319,8 +262,6 @@ set -g @plugin 'arcticicestudio/nord-tmux'
 ```
 
 ### catppuccin/tmux
-
----
 
 插件地址：[catppuccin/tmux](https://github.com/catppuccin/tmux)
 

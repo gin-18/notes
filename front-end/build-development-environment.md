@@ -1,12 +1,6 @@
 # 搭建开发环境
 
----
-
-[TOC]
-
 ## Webpack + Tailwind CSS(样式框架) + iconify(图标框架)
-
----
 
 官方地址：
 
@@ -18,15 +12,11 @@
 
 ### 安装依赖
 
----
-
 ```sh
 npm i -D webpack webpack-cli webpack-dev-server @babel/core @babel/preser-env babel-loader html-webpack-plugin mini-css-extract-plugin css-loader tailwindcss autoprefixer postcss postcss-loader @iconify/tailwind @iconify/json
 ```
 
 ### Postcss 配置
-
----
 
 创建 `postcss.config.js` 并写入下面内容。
 
@@ -40,8 +30,6 @@ module.exports = {
 ```
 
 ### Tailwind CSS 配置
-
----
 
 创建 `tailwindcss.config.js` 并写入下面内容。
 
@@ -63,8 +51,6 @@ module.exports = {
 
 ### babel 配置
 
----
-
 ```js
 {
   "presets": ["@babel/preset-env"]
@@ -72,8 +58,6 @@ module.exports = {
 ```
 
 ### Webpack 配置
-
----
 
 创建 `webpack.config.js` 并写入一下内容。
 
@@ -171,8 +155,6 @@ module.exports = {
 
 ### 使用 Tailwind CSS
 
----
-
 添加下面的内容到主样式文件 `main.css`。
 
 ```css
@@ -183,8 +165,6 @@ module.exports = {
 
 ### 使用样式文件
 
----
-
 在需要使用样式的页面的脚本文件中添加以下内容：
 
 ```js
@@ -193,8 +173,6 @@ import 'path/to/main.css';
 
 ### 使用iconify
 
----
-
 使用以下格式使用图标：
 
 ```html
@@ -202,8 +180,6 @@ import 'path/to/main.css';
 ```
 
 ### package.json 配置
-
----
 
 修改 `package.json` 文件中的 `scripts` 字段为：
 
