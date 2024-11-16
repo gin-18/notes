@@ -1,11 +1,5 @@
 # git
 
-解决git clone太慢
-
-```
-将原URL中的github.com替换为github.com.cnpmjs.org
-```
-
 ## 三种状态
 
 git有三种状态，文件可能处于其中一种：**已提交(committed)**，**已修改(modified)**和**已暂存(staged)**
@@ -45,7 +39,7 @@ git仓库目录是git用来保存项目数据和对象数据库的地方。这�
 git自带一个git config的工具来帮助设置控制git外观和行为的配置变量。这些变量存储在3个不同的位置：
 
 ```
-1. /et/gitconfig文件：包含系统上每一个用户及他们仓库的通用配置。 如果在执行 git config 时带上 --system 选项，那么它就会读写该文件中的配置变量。 （由于它是系统配置文件，因此你需要管理员或超级用户权限来修改它。）
+1. /etc/gitconfig文件：包含系统上每一个用户及他们仓库的通用配置。 如果在执行 git config 时带上 --system 选项，那么它就会读写该文件中的配置变量。 （由于它是系统配置文件，因此你需要管理员或超级用户权限来修改它。）
 
 2. ~/.gitconfig 或 ~/.config/git/config 文件：只针对当前用户。 你可以传递 --global 选项让 Git 读写此文件，这会对你系统上 所有 的仓库生效。
 
@@ -109,7 +103,7 @@ git help <verb>
 将当前目录创建为git本地库
 
 ```
-git init 
+git init
 ```
 
 该命令将创建一个名为.git的子目录，这个子目录含有初始化的git仓库中所有的必须文件。虽然创建了本地库，但是项目的文件还没有被跟踪
@@ -137,7 +131,7 @@ git clone <url>
 使用"git add"命令开始跟踪一个文件
 
 ```
-git add . 
+git add .
 
 git add <file name>
 ```
@@ -214,115 +208,6 @@ git commit
 
 使用"git commit -a"命令可以跳过暂存，需要注意的是这可能会将一些不需要的文件添加到提交中
 
-### 移除文件
-
-要从git中移除某一个文件，就必须要从已跟踪的文件清单中移除(确切地说，是从暂存区中移除)，可以使用"git rm"命令来完成这一项工作，并连带从工作目录中删除指定的文件
-
-
-
-
-
-
-
-
-
-
-
-创建git本地库
-
-
-查看状态
-```
-git status //查看本地库文件的状态
-```
-
-查看未放入暂存区的内容
-```
-git diff
-```
-
-丢弃工作区的改动
-```
-git restore <文件>
-```
-
-放弃追踪
-```
-git reset
-```
-
-提交
-```
-git commit -m "本次提交的描述"
-```
-> git commit之前需要告诉git你的名字和邮箱<br />
-> 直接输入git commit，git会打开默认的编辑器，要求输入本次提交的描述
-
-设置git打开的编辑器
-```
-git config --global core.editor 编辑器的名称
-```
-
-.gitignore可以设置忽略文件（让git管理的文件）
-> 在.gitignore文件中写入需要忽略的文件的文件名即可<br />
-> git已经追踪的文件再添加到.gitignore中git仍然会继续踪<br />
-> 将文件从暂存区中删除git就不会在追踪该文件了
-
-将文件从暂存区中删除
-```
-git rm --cached <文件>
-```
-
-添加新的分支
-```
-git branch <分支的名称>
-```
-> 添加新的分支之前需要向git仓库提交文件，这样master分支才会被创建。有了master分支才能创建新的分支
-
-切换分支
-```
-git checkout <分支的名称>
-```
-
-合并分支
-```
-git merge <分支的名称> //在主分支中操作
-```
-
-删除分支
-```
-git branch -d <分支的名称>
-```
-
-设置网络提交地址（github）
-```
-git remote add origin <url(github)>
-```
-
-提交到网络（github）
-```
-git push --set-upstream origin master
-```
-
-将网络的文件拉取到本地
-```
-git pull <url>
-```
-
-克隆一个仓库
-```
-git clone <url>
-```
-
-重新设置remote地址
-
-```
-git remote set-url origin <url>
-```
-
-## lazygit
-
-
 ## github生成toc
 
 ```sh
@@ -332,3 +217,19 @@ chmod a+x gh-md-toc
 
 ./gh-md-toc <file>
 ```
+
+## GitHub Flow
+
+两个分支: `main` 和 `feature`。
+
+
+
+
+
+
+
+
+
+
+
+

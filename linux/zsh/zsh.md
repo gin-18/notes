@@ -1,6 +1,4 @@
-# Zsh
-
-Zsh官方地址：[Zsh](https://www.zsh.org/)
+# [Zsh](https://www.zsh.org/)
 
 ## Arch Linux 安装 zsh
 
@@ -11,7 +9,7 @@ sudo pacman -S zsh
 ## 切换到 zsh
 
 ```sh
-chsh -s /bin/zsh
+chsh -s $(which zsh)
 ```
 
 ## 统一管理 zsh 配置
@@ -40,7 +38,7 @@ echo "source ~/dotfiles/zsh/zshrc" > ~/dotfiles/zsh/zshrc
 
 ### 插件管理器 - zinit
 
-插件管理器地址：[zdharma-continuum/zinit](https://github.com/zdharma-continuum/zinit)
+github zinit repo: [zdharma-continuum/zinit](https://github.com/zdharma-continuum/zinit)
 
 ### 安装 zinit
 
@@ -48,10 +46,6 @@ echo "source ~/dotfiles/zsh/zshrc" > ~/dotfiles/zsh/zshrc
 
 ### 推荐插件
 
-```
-zinit light zsh-users/zsh-autosuggestions
+* zinit light zsh-users/zsh-autosuggestions
 
-zinit light zdharma/fast-syntax-highlighting
-
-zinit load zdharma/history-search-multi-word
-```
+* zinit light zdharma/fast-syntax-highlighting
