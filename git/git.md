@@ -208,6 +208,40 @@ git commit
 
 使用"git commit -a"命令可以跳过暂存，需要注意的是这可能会将一些不需要的文件添加到提交中
 
+## submodule
+
+添加子模块
+
+```sh
+git submodule add <url_to_submodule> <path_to_submodule>
+```
+
+更新子模块
+
+```sh
+git submodule update --remote --merge
+```
+
+删除子模块
+
+1. 删除子模块的配置信息
+
+```sh
+git submodule deinit -f <path_to_submodule>
+```
+
+2. 从父仓库中删除子模块的引用
+
+```sh
+git rm -f <path_to_submodule>
+```
+
+3. 删除子模块文件
+
+```sh
+rm -rf .git/modules/<path_to_submodule>
+```
+
 ## github生成toc
 
 ```sh
@@ -221,15 +255,3 @@ chmod a+x gh-md-toc
 ## GitHub Flow
 
 两个分支: `main` 和 `feature`。
-
-
-
-
-
-
-
-
-
-
-
-
