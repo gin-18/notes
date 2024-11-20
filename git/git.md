@@ -208,6 +208,44 @@ git commit
 
 使用"git commit -a"命令可以跳过暂存，需要注意的是这可能会将一些不需要的文件添加到提交中
 
+## tag
+
+创建标签
+
+```sh
+git tag -a <tag_name> -m <tag_description>
+```
+
+列出所有标签
+
+```sh
+git tag
+```
+
+查看标签信息
+
+```sh
+git show <tag_name>
+```
+
+删除标签
+
+```sh
+git tag -d <tag_name>
+```
+
+推送标签
+
+```sh
+git push origin <tag_name>
+```
+
+删除远程标签
+
+```sh
+git push origin :refs/tags/<tag_name>
+```
+
 ## submodule
 
 添加子模块
