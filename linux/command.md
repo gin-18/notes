@@ -1,5 +1,39 @@
 # Linux Command
 
+## eifbootmgr
+
+`efibootmgr` 命令管理EFI启动项。
+
+查看启动项
+
+```sh
+efibootmgr
+
+or
+
+efibootmgr -v
+```
+
+更改启动项
+
+```sh
+efibootmgr -o <序号>
+```
+
+删除启动项
+
+```sh
+efibootmgr -b <序号> -B
+```
+
+添加启动项
+
+```sh
+efibootmgr --create --disk /dev/nvme0n1 --part 1 \
+  --loader '\EFI\systemd\systemd-bootx64.efi' \
+  --label "Arch Linux" --verbose
+```
+
 ## the_silver_searcher
 
 ag会默认忽略.gitignore中的文件。
@@ -93,11 +127,6 @@ ffmpeg -ss <start time> -i input -vframes 1 -q:v <1-5> output.png
 ```
 ffmpeg -ss <start time> -i input.mp4 -t <time num> -c copy output.mp4
 ```
-
-## magick
-
-<++>
-
 
 
 
